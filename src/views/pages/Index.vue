@@ -1,17 +1,29 @@
 <script setup>
-    import {ref} from 'vue'; 
-    // Import Swiper Vue.js components
-    import { Swiper, SwiperSlide } from "swiper/vue";
-    // Import Swiper styles
-    import "swiper/css";
-    import "swiper/css/pagination";
-    import "swiper/css/navigation";
-    // import required modules
-    import { Pagination, Autoplay , Navigation } from "swiper";
-    
-    const modules = ref([Pagination , Autoplay]);
-    const newSlide = ref([Navigation]);
+import { onMounted, ref } from 'vue';
+import { useSlider , useCategory } from '@/stores';
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from "swiper/vue";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+// import required modules
+import { Pagination, Autoplay, Navigation } from "swiper";
+import { storeToRefs } from 'pinia';
 
+const modules = ref([Pagination, Autoplay]);
+const newSlide = ref([Navigation]);
+
+const slider = useSlider();
+const category = useCategory();
+
+const { sliders } = storeToRefs(slider);
+const { categories } = storeToRefs(category);
+
+onMounted(() => {
+    slider.getData();
+    category.getData();
+}); 
 </script>
 
 <template>
@@ -22,33 +34,20 @@
                     <div class="col-lg-12 order-0 order-lg-1 order-xl-1">
                         <div class="home-grid-slider slider-arrow slider-dots">
 
-                            <swiper
-                                :spaceBetween="30"
-                                :loop="true"
-                                :autoplay="{
-                                delay: 2000,
-                                }"
-                                :pagination="{
-                                clickable: true,
-                                }"
-                                :modules="modules"
-                                class="mySwiper"
-                                >
-                                <swiper-slide>
-                                   <img src="@/assets/images/banner/01.jfif" alt="banner-01" />
+                            <swiper :spaceBetween="30" :loop="true" :autoplay="{
+                            delay: 2000,
+                            }" :pagination="{
+                            clickable: true,
+                            }" :modules="modules" class="mySwiper">
+
+                                <swiper-slide v-for="(slider,index) in sliders.data" :key="index">
+                                    <img :src="slider.image" alt="banner-slider" />
                                 </swiper-slide>
-                                <swiper-slide>
-                                   <img src="@/assets/images/banner/03.jfif" alt="banner-02" />
-                                </swiper-slide>
-                                <swiper-slide>
-                                 <img src="@/assets/images/banner/03.jfif" alt="banner-03" />
-                                </swiper-slide>
-                               
                             </swiper>
 
-                            
-                           
-                            
+
+
+
                         </div>
                     </div>
                 </div>
@@ -66,143 +65,17 @@
                 </div>
 
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                    <div class="col">
+                    <div class="col" v-for="(category,index) in categories.data" :key="index">
                         <div class="product-card">
                             <ul>
                                 <li>
                                     <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
+                                        <img :src="category.image" alt="" />
                                     </a>
                                 </li>
                             </ul>
 
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/06.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img src="@/assets/images/promo/home/07.jpg" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <h6 class="text-center mt-2">category name</h6>
+                            <h6 class="text-center mt-2">{{ category.name }}</h6>
                         </div>
                     </div>
                 </div>
@@ -227,9 +100,9 @@
                                 </div>
                                 <button class="product-wish wish">
                                     <i class="fas fa-heart"></i></button>
-                                    <router-link class="product-image" :to="{name: 'product.details'}">
-                                        <img src="@/assets/images/product/01.jpg" alt="product" />
-                                    </router-link>
+                                <router-link class="product-image" :to="{name: 'product.details'}">
+                                    <img src="@/assets/images/product/01.jpg" alt="product" />
+                                </router-link>
 
                             </div>
                             <div class="product-content">
@@ -1131,18 +1004,9 @@
                 <div class="row">
                     <div class="col">
                         <ul class="new-slider slider-arrow">
-                            <swiper
-                                :slidesPerView="5"
-                                :slidesPerGroup="5"
-                                :loop="true"
-                                :autoplay="{
-                                delay: 2000,
-                                }"
-                                :loopFillGroupWithBlank="true"
-                                :navigation="true"
-                                :modules="newSlide"
-                                class="mySwiper"
-                            >
+                            <swiper :slidesPerView="5" :slidesPerGroup="5" :loop="true" :autoplay="{
+                            delay: 2000,
+                            }" :loopFillGroupWithBlank="true" :navigation="true" :modules="newSlide" class="mySwiper">
                                 <swiper-slide>
                                     <li>
                                         <div class="product-card">
@@ -1315,7 +1179,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                </swiper-slide>  
+                                </swiper-slide>
                             </swiper>
                         </ul>
                     </div>
@@ -1334,4 +1198,5 @@
 </template>
 
 <style>
+
 </style>
