@@ -1,9 +1,8 @@
 <script setup>
-import { useAuth } from '@/stores';
+import { useAuth , useNotification } from '@/stores';
 import { ref } from 'vue';
 import { Field, Form } from 'vee-validate';
 import { useRouter } from 'vue-router'
-import { ElNotification } from 'element-plus'
 
 import * as yup from 'yup';
 const schema = yup.object({
@@ -13,16 +12,13 @@ const schema = yup.object({
 
 const router = useRouter()
 const auth = useAuth();
+const notify = useNotification();
 
 const onSubmit = async (values, { setErrors }) => {
     const res = await auth.login(values);
     if (res.data) {
         router.push({ name: 'index.page' });
-        ElNotification({
-            title: 'Success',
-            message: 'Login Successfully',
-            type: 'success',
-        });
+        notify.Success("Login Successful");
     } else {
         setErrors(res);
     }

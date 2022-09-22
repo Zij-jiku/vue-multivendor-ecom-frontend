@@ -124,6 +124,12 @@ h6 {
   font-size: var(--h6size);
   line-height: var(--h6height);
 }
+
+.resent_btn {
+  float: right;
+  margin: 10px 0;
+  padding-left: 5px;
+}
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   font-size: 14px;
@@ -6103,8 +6109,6 @@ tbody tr td:last-child {
   .hover-nav .nav-item .dropdown-menu {
     display: none;
   }
-  .hover-nav .nav-item:hover .nav-link {
-  }
   .hover-nav .nav-item:hover .dropdown-menu {
     display: block;
   }
@@ -6112,6 +6116,7 @@ tbody tr td:last-child {
     margin-top: 0;
   }
 }
+
 
 
 

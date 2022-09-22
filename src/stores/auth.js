@@ -50,6 +50,25 @@ export const useAuth = defineStore('auth', {
       }
     },
 
+    async resentOtp(phone) {
+      try {
+        const res = await axiosInstance.post("/user/otp-resent", {phone: phone});
+        if (res.status == 200) {
+          this.user = res.data;
+          return new Promise((resolve) => {
+            resolve(res.data);
+          });
+
+        }
+      } catch (error) {
+        if (error.response.data) {
+          this.errors = error.response.data.errors;
+          return new Promise((reject) => {
+            reject(error.response.data.errors);
+          });
+        }
+      }
+    },
 
     async login(formData) {
       try {

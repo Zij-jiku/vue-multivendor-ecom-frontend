@@ -11,10 +11,13 @@
 
     <!-- Header Part Start -->
     <HeaderPart />
+
     <!-- Navbar Start -->
     <NavBar />
+
     <!-- Cart Sidebar  -->
     <CartSideBar />
+
     <!-- MobileMenu -->
     <MobileMenu />
 
@@ -25,7 +28,7 @@
     
     <!-- NewsPart && Intro Part -->
     <NewsPart/>
-
+    
     <!-- Footer Start -->
     <FooterPart />
     <!-- Footer End -->

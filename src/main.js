@@ -1,11 +1,15 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia'
+// Main CSS & Js File
 import './style.css';
 import './script.js';
-import router from './router';
+// App JS
 import App from './App.vue';
+// Router
+import router from './router';
+// Notification JS
 import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+// State Management Pinia
+import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const pinia = createPinia()

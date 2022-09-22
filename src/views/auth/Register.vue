@@ -1,16 +1,15 @@
 <script setup>
-
 // import
-import { useAuth } from '@/stores';
+import { useAuth , useNotification } from '@/stores';
 import { reactive, ref } from 'vue';
 import { Field, Form } from 'vee-validate';
 import { useRouter } from 'vue-router'
-import { ElNotification } from 'element-plus'
 import * as yup from 'yup';
 
 // const var
 const router = useRouter()
 const auth = useAuth();
+const notify = useNotification();
 
 // function declaration
 const schema = yup.object({
@@ -28,11 +27,8 @@ const onSubmit = async (values, { setErrors }) => {
     const res = await auth.register(values);
     if (res.status) {
         otpSent.value = true;
-        ElNotification({
-            title: 'Success',
-            message: 'OTP Sent Successfully',
-            type: 'success',
-        });
+        setTime(120);
+        notify.Success("OTP Sent Successfully!");
     } else {
         setErrors(res);
     }
@@ -44,6 +40,7 @@ const toggleShow = () => {
     showPassword.value = !showPassword.value
 }
 
+// OTP Sent
 const otpSent = ref(false);
 const verifyForm = reactive({
     phone: '',
@@ -59,15 +56,59 @@ const otpVerify = async (values, { setErrors }) => {
     if (res.data) {
         router.push({ name: 'index.page' });
         otpSent.value = false;
-        ElNotification({
-            title: 'Success',
-            message: 'Registration Successfully',
-            type: 'success',
-        });
+        notify.Success("Registration Successfully!");
     } else {
         setErrors(res);
     }
 };
+
+
+// CountDown
+var intervalTimer;
+let timeLeft = ref("00:00");
+
+function setTime(seconds) {
+    clearInterval(intervalTimer);
+    timer(seconds);
+}
+
+function timer(seconds) {
+    const now = Date.now();
+    const end = now + seconds * 1000;
+    displayTimeLeft(seconds);
+    countdown(end);
+}
+function countdown(end) {
+    // initialTime = selectedTime.value;
+    intervalTimer = setInterval(() => {
+        const secondsLeft = Math.round((end - Date.now()) / 1000);
+        if (secondsLeft < 0) {
+            clearInterval(intervalTimer);
+            return;
+        }
+        displayTimeLeft(secondsLeft)
+    }, 1000);
+}
+
+function displayTimeLeft(secondsLeft) {
+    const minutes = Math.floor((secondsLeft % 3600) / 60);
+    const seconds = secondsLeft % 60;
+    timeLeft.value = `${zeroPadded(minutes)}:${zeroPadded(seconds)}`;
+}
+
+function zeroPadded(num) {
+    // 4 --> 04
+    return num < 10 ? `0${num}` : num;
+}
+
+// Re-sent Otp Function
+const resentOtp = async () => {
+    const res = await auth.resentOtp(verifyForm.phone);
+    setTime(120);
+    if (res.status) {
+        notify.Success("Re-sent OTP Successfully!");
+    }
+}
 
 </script>
     
@@ -91,7 +132,13 @@ const otpVerify = async (values, { setErrors }) => {
                                     <!-- Phone -->
                                     <div class="form-group">
                                         <Field name="otp_code" type="text" class="form-control"
-                                            :class="{'is-invalid' : errors.otp_code}" v-model="verifyForm.otp_code" placeholder="Otp Verify" />
+                                            :class="{'is-invalid' : errors.otp_code}" v-model="verifyForm.otp_code"
+                                            placeholder="Otp Verify" />
+
+                                            <a href="javascript:void(0)" class ="resent_btn" v-if="timeLeft === '00:00'" @click="resentOtp">Re-Sent OTP</a>
+                                            <a href="javascript:void(0)" class ="resent_btn" v-else>{{ timeLeft }}</a>
+
+
                                         <span class="text-danger" v-if="errors.otp_code"> {{ errors.otp_code }} </span>
                                     </div>
 
@@ -125,7 +172,8 @@ const otpVerify = async (values, { setErrors }) => {
                                     <!-- Phone -->
                                     <div class="form-group">
                                         <Field name="phone" type="text" class="form-control"
-                                            :class="{'is-invalid' : errors.phone}" v-model ="verifyForm.phone" placeholder="Phone Number" />
+                                            :class="{'is-invalid' : errors.phone}" v-model="verifyForm.phone"
+                                            placeholder="Phone Number" />
                                         <span class="text-danger" v-if="errors.phone"> {{ errors.phone }} </span>
                                     </div>
 
