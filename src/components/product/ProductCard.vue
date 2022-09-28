@@ -16,14 +16,14 @@ const props = defineProps({
             <div class="product-card">
                 <div class="product-media">
                     <div class="product-label">
-                        
+
                         <label class="label-text new">{{ product.conditions }}</label>
                         <label class="label-text sale">{{ product.discount }}%</label>
                     </div>
                     <button class="product-wish wish">
                         <i class="fas fa-heart"></i></button>
                     <router-link class="product-image" :to="{name: 'product.details'}">
-                        <img :src="product.thumbnail" alt="product" />
+                        <img :src="$filters.imagePath(product.thumbnail)" alt="product" />
                     </router-link>
 
                 </div>
@@ -32,8 +32,8 @@ const props = defineProps({
                         <router-link :to="{name: 'product.details'}">{{ product.name }}</router-link>
                     </h6>
 
-                    <product-price :price = "product.price" :discount="product.discount"/>
-                    
+                    <product-price :price="product.price" :discount="product.discount" />
+
 
                     <button class="product-add" title="Add to Cart">
                         <i class="fas fa-shopping-basket"></i><span>Add</span>

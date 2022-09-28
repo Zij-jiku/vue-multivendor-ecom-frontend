@@ -8,10 +8,10 @@
 @import "@/assets/css/main.css";
 @import "@/assets/css/home-category.css";
 
-
 /* Progress Bar Css */
 @import 'element-plus/dist/index.css';
 @import 'nprogress/nprogress.css';
+
 #nprogress .bar {
     background: #ffffff !important;
     padding: 0 10px !important;

@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { useSlider , useCategory , useProduct } from '@/stores';
+import { useSlider, useCategory, useProduct } from '@/stores';
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
 // Import Swiper styles
@@ -11,8 +11,10 @@ import "swiper/css/navigation";
 import { Pagination, Autoplay, Navigation } from "swiper";
 import { storeToRefs } from 'pinia';
 
+
 // import component
-import {ProductCard} from '@/components/product';
+import { ProductCard, ProductPrice } from '@/components/product';
+import { SliderSkeleton, CategorySkeleton, ProductSkeleton } from '@/components/skeleton';
 
 const modules = ref([Pagination, Autoplay]);
 const newSlide = ref([Navigation]);
@@ -23,7 +25,7 @@ const product = useProduct();
 
 const { sliders } = storeToRefs(slider);
 const { categories } = storeToRefs(category);
-const { sales , popular , features, winters , news } = storeToRefs(product);
+const { sales, popular, features, winters, newItems } = storeToRefs(product);
 
 onMounted(() => {
     slider.getData();
@@ -41,18 +43,25 @@ onMounted(() => {
         <section class="banner-part">
             <div class="">
                 <div class="row">
+
                     <div class="col-lg-12 order-0 order-lg-1 order-xl-1">
                         <div class="home-grid-slider slider-arrow slider-dots">
-                            <swiper :spaceBetween="30" :loop="true" :autoplay="{
-                            delay: 2000,
-                            }" :pagination="{
-                            clickable: true,
-                            }" :modules="modules" class="mySwiper">
+                            <template v-if="sliders.data">
+                                <swiper :spaceBetween="30" :loop="true" :autoplay="{
+                                delay: 2000,
+                                }" :pagination="{
+                                clickable: true,
+                                }" :modules="modules" class="mySwiper">
 
-                                <swiper-slide v-for="(slider,index) in sliders.data" :key="index">
-                                    <img :src="slider.image" alt="banner-slider" />
-                                </swiper-slide>
-                            </swiper>
+                                    <swiper-slide v-for="(slider,index) in sliders.data" :key="index">
+                                        <img :src="$filters.imagePath(slider.image)" alt="banner-slider" />
+                                    </swiper-slide>
+                                </swiper>
+                            </template>
+
+                            <template v-else>
+                                <SliderSkeleton />
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -70,19 +79,29 @@ onMounted(() => {
                 </div>
 
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                    <div class="col" v-for="(category,index) in categories.data" :key="index">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a class="suggest-card" href="shop-4column.html">
-                                        <img :src="category.image" alt="" />
-                                    </a>
-                                </li>
-                            </ul>
 
-                            <h6 class="text-center mt-2">{{ category.name }}</h6>
+                    <template v-if="categories.data">
+                        <div class="col" v-for="(category,index) in categories.data" :key="index">
+                            <div class="product-card">
+                                <ul>
+                                    <li>
+                                        <a class="suggest-card" href="shop-4column.html">
+                                            <img :src="$filters.imagePath(category.image)" alt="" />
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <h6 class="text-center mt-2">{{ category.name }}</h6>
+                            </div>
                         </div>
-                    </div>
+                    </template>
+
+
+                    <template v-else>
+                        <CategorySkeleton :dataAmount="10" />
+                    </template>
+
+
                 </div>
             </div>
         </section>
@@ -97,29 +116,15 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <ProductCard :products="sales" />
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-btn-25">
-                            <a href="shop-4column.html" class="btn btn-outline"><i class="fas fa-eye"></i><span>show
-                                    more</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-         <!-- New Items -->
-         <section class="section recent-part">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-heading">
-                            <h2>New items</h2>
-                        </div>
-                    </div>
-                </div>
-                <ProductCard :products="news" />
+                <template v-if="sales.data">
+                    <ProductCard :products="sales" />
+                </template>
+
+                <template v-else>
+                    <ProductSkeleton :dataAmount="10" />
+                </template>
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-btn-25">
@@ -141,7 +146,16 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <ProductCard :products="popular" />
+
+                <template v-if="popular.data">
+                    <ProductCard :products="popular" />
+                </template>
+
+                <template v-else>
+                    <ProductSkeleton :dataAmount="10" />
+                </template>
+
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-btn-25">
@@ -163,7 +177,16 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <ProductCard :products="features" />
+
+                <template v-if="features.data">
+                    <ProductCard :products="features" />
+                </template>
+
+                <template v-else>
+                    <ProductSkeleton :dataAmount="10" />
+                </template>
+
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-btn-25">
@@ -185,7 +208,16 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <ProductCard :products="winters" />
+
+                <template v-if="winters.data">
+                    <ProductCard :products="winters" />
+                </template>
+
+                <template v-else>
+                    <ProductSkeleton :dataAmount="10" />
+                </template>
+
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-btn-25">
@@ -203,7 +235,7 @@ onMounted(() => {
                 <div class="row">
                     <div class="col">
                         <div class="section-heading">
-                            <h2>collected new items</h2>
+                            <h2>new items</h2>
                         </div>
                     </div>
                 </div>
@@ -213,175 +245,31 @@ onMounted(() => {
                             <swiper :slidesPerView="5" :slidesPerGroup="5" :loop="true" :autoplay="{
                             delay: 2000,
                             }" :loopFillGroupWithBlank="true" :navigation="true" :modules="newSlide" class="mySwiper">
-                                <swiper-slide>
+                                <swiper-slide v-for="(product, index) in newItems.data" :key="index">
                                     <li>
                                         <div class="product-card">
                                             <div class="product-media">
                                                 <div class="product-label">
-                                                    <label class="label-text new">New</label>
+
+                                                    <label class="label-text new">{{ product.conditions }}</label>
+                                                    <label class="label-text sale">{{ product.discount }}%</label>
+
                                                 </div>
                                                 <button class="product-wish wish">
                                                     <i class="fas fa-heart"></i></button><a class="product-image"
-                                                    href="product-video.html"><img src="@/assets/images/product/01.jpg"
+                                                    href="#"><img :src="$filters.imagePath(product.thumbnail)"
                                                         alt="product" /></a>
 
                                             </div>
                                             <div class="product-content">
 
-                                                <h6 class="product-name">
-                                                    <a href="product-video.html">Products Name</a>
-                                                </h6>
-                                                <h6 class="product-price">
-                                                    <del>$34</del><span>$28<small></small></span>
-                                                </h6>
+                                                <product-price :price="product.price" :discount="product.discount" />
+
+
                                                 <button class="product-add" title="Add to Cart">
                                                     <i class="fas fa-shopping-basket"></i><span>Add</span>
                                                 </button>
 
-                                            </div>
-                                        </div>
-                                    </li>
-                                </swiper-slide>
-
-                                <swiper-slide>
-                                    <li>
-                                        <div class="product-card">
-                                            <div class="product-media">
-                                                <div class="product-label">
-                                                    <label class="label-text new">New</label>
-                                                </div>
-                                                <button class="product-wish wish">
-                                                    <i class="fas fa-heart"></i></button><a class="product-image"
-                                                    href="product-video.html"><img src="@/assets/images/product/05.jpg"
-                                                        alt="product" /></a>
-
-                                            </div>
-                                            <div class="product-content">
-
-                                                <h6 class="product-name">
-                                                    <a href="product-video.html">Products Name</a>
-                                                </h6>
-                                                <h6 class="product-price">
-                                                    <del>$34</del><span>$28<small></small></span>
-                                                </h6>
-                                                <button class="product-add" title="Add to Cart">
-                                                    <i class="fas fa-shopping-basket"></i><span>Add</span>
-                                                </button>
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                </swiper-slide>
-                                <swiper-slide>
-                                    <li>
-                                        <div class="product-card">
-                                            <div class="product-media">
-                                                <div class="product-label">
-                                                    <label class="label-text sale">sale</label>
-                                                </div>
-                                                <button class="product-wish wish">
-                                                    <i class="fas fa-heart"></i></button><a class="product-image"
-                                                    href="product-video.html"><img src="@/assets/images/product/07.jpg"
-                                                        alt="product" /></a>
-
-                                            </div>
-                                            <div class="product-content">
-
-                                                <h6 class="product-name">
-                                                    <a href="product-video.html">Products Name</a>
-                                                </h6>
-                                                <h6 class="product-price">
-                                                    <del>$34</del><span>$28<small></small></span>
-                                                </h6>
-                                                <button class="product-add" title="Add to Cart">
-                                                    <i class="fas fa-shopping-basket"></i><span>Add</span>
-                                                </button>
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                </swiper-slide>
-                                <swiper-slide>
-                                    <li>
-                                        <div class="product-card">
-                                            <div class="product-media">
-                                                <div class="product-label">
-                                                    <label class="label-text sale">sale</label>
-                                                </div>
-                                                <button class="product-wish wish">
-                                                    <i class="fas fa-heart"></i></button><a class="product-image"
-                                                    href="product-video.html"><img src="@/assets/images/product/01.jpg"
-                                                        alt="product" /></a>
-
-                                            </div>
-                                            <div class="product-content">
-
-                                                <h6 class="product-name">
-                                                    <a href="product-video.html">Products Name</a>
-                                                </h6>
-                                                <h6 class="product-price">
-                                                    <del>$34</del><span>$28<small></small></span>
-                                                </h6>
-                                                <button class="product-add" title="Add to Cart">
-                                                    <i class="fas fa-shopping-basket"></i><span>Add</span>
-                                                </button>
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                </swiper-slide>
-                                <swiper-slide>
-                                    <li>
-                                        <div class="product-card">
-                                            <div class="product-media">
-                                                <div class="product-label">
-                                                    <label class="label-text sale">sale</label>
-                                                </div>
-                                                <button class="product-wish wish">
-                                                    <i class="fas fa-heart"></i></button><a class="product-image"
-                                                    href="product-video.html"><img src="@/assets/images/product/06.jpg"
-                                                        alt="product" /></a>
-
-                                            </div>
-                                            <div class="product-content">
-
-                                                <h6 class="product-name">
-                                                    <a href="product-video.html">Products Name</a>
-                                                </h6>
-                                                <h6 class="product-price">
-                                                    <del>$34</del><span>$28<small></small></span>
-                                                </h6>
-                                                <button class="product-add" title="Add to Cart">
-                                                    <i class="fas fa-shopping-basket"></i><span>Add</span>
-                                                </button>
-
-                                            </div>
-                                        </div>
-                                    </li>
-                                </swiper-slide>
-                                <swiper-slide>
-                                    <li>
-                                        <div class="product-card">
-                                            <div class="product-media">
-                                                <div class="product-label">
-                                                    <label class="label-text sale">sale</label>
-                                                </div>
-                                                <button class="product-wish wish">
-                                                    <i class="fas fa-heart"></i></button><a class="product-image"
-                                                    href="product-video.html"><img src="@/assets/images/product/04.jpg"
-                                                        alt="product" /></a>
-                                            </div>
-                                            <div class="product-content">
-
-                                                <h6 class="product-name">
-                                                    <a href="product-video.html">Products Name</a>
-                                                </h6>
-                                                <h6 class="product-price">
-                                                    <del>$34</del><span>$28<small></small></span>
-                                                </h6>
-                                                <button class="product-add" title="Add to Cart">
-                                                    <i class="fas fa-shopping-basket"></i><span>Add</span>
-                                                </button>
                                             </div>
                                         </div>
                                     </li>
