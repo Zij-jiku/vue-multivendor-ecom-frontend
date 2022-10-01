@@ -1,20 +1,21 @@
 <script setup>
 
-import { useAuth , useNotification } from '@/stores';
+import { useAuth, useNotification, useCart } from '@/stores';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router'
 
-const router = useRouter()
+const router = useRouter();
 const auth = useAuth();
 const notify = useNotification();
-const {user , loading} = storeToRefs(auth);
+const { user, loading } = storeToRefs(auth);
+const { cartItemsCount } = storeToRefs(useCart());
 
 const userLogout = async () => {
   const res = await auth.logout();
   if (res.status) {
-      router.push({ name: 'index.page' });
-      notify.Success("Logout Successful")
-    } 
+    router.push({ name: 'index.page' });
+    notify.Success("Logout Successful")
+  }
 }
 
 function search() {
@@ -46,7 +47,9 @@ function cartShow() {
           <div class="col-md-5 col-lg-3"></div>
           <div class="col-md-7 col-lg-4">
             <ul class="header-top-list">
-              <li><router-link :to="{name: 'seller.apply'}">Seller Apply</router-link></li>
+              <li>
+                <router-link :to="{name: 'seller.apply'}">Seller Apply</router-link>
+              </li>
               <li><a href="faq.html">need help</a></li>
               <li><a href="contact.html">contact us</a></li>
             </ul>
@@ -60,8 +63,8 @@ function cartShow() {
         <div class="header-content">
           <div class="header-media-group">
             <button class="header-user" @click="menu">
-              <img src="@/assets/images/menu.png" alt="user" /></button><router-link to="/"><img
-                src="@/assets/images/logo.png" alt="logo" /></router-link>
+              <img src="@/assets/images/menu.png" alt="user" /></button>
+            <router-link to="/"><img src="@/assets/images/logo.png" alt="logo" /></router-link>
 
             <button class="header-src" @click="search">
               <i class="fas fa-search"></i>
@@ -78,25 +81,36 @@ function cartShow() {
             <li class="nav-item dropdown">
               <a class="nav-link header-widget" href="#" data-bs-toggle="dropdown"><i class="fas fa-user"></i></a>
               <ul class="dropdown-menu dropdown-menu-end" v-if="!user.data">
-                <li><router-link :to="{name: 'user.login'}" class="dropdown-item"> Login</router-link></li>
-                <li><router-link :to="{name: 'user.register'}" class="dropdown-item"> Register</router-link></li>
+                <li>
+                  <router-link :to="{name: 'user.login'}" class="dropdown-item"> Login</router-link>
+                </li>
+                <li>
+                  <router-link :to="{name: 'user.register'}" class="dropdown-item"> Register</router-link>
+                </li>
               </ul>
 
               <ul class="dropdown-menu dropdown-menu-end" v-else>
-                <li><router-link :to="{name: 'user.profile'}" class="dropdown-item"> Profile</router-link></li>
-                <li><router-link :to="{name: 'user.orders'}" class="dropdown-item"> My Orders</router-link></li>
-                <li><router-link :to="{name: 'user.wishlist'}" class="dropdown-item"> My Wishlist</router-link></li>
-                <li><button type="button" class="dropdown-item" @click="userLogout" :disable="loading"> LogOut <span v-show="loading" class="spinner-border spinner-border-sm mx-1"></span> </button></li>
+                <li>
+                  <router-link :to="{name: 'user.profile'}" class="dropdown-item"> Profile</router-link>
+                </li>
+                <li>
+                  <router-link :to="{name: 'user.orders'}" class="dropdown-item"> My Orders</router-link>
+                </li>
+                <li>
+                  <router-link :to="{name: 'user.wishlist'}" class="dropdown-item"> My Wishlist</router-link>
+                </li>
+                <li><button type="button" class="dropdown-item" @click="userLogout" :disable="loading"> LogOut <span
+                      v-show="loading" class="spinner-border spinner-border-sm mx-1"></span> </button></li>
               </ul>
             </li>
-            
+
             <router-link :to="{name: 'user.wishlist'}" class="header-widget" title="Wishlist">
               <i class="fas fa-heart"></i><sup>0</sup>
             </router-link>
 
-            <button class="header-widget header-cart" @click="cartShow"
-              title="Cartlist">
-              <i class="fas fa-shopping-basket"></i><sup>9+</sup><span>total price<small>$345.00</small></span>
+            <button class="header-widget header-cart" @click="cartShow" title="Cartlist">
+              <i class="fas fa-shopping-basket"></i><sup>{{ cartItemsCount }}</sup><span>total
+                price<small>$345.00</small></span>
             </button>
           </div>
         </div>

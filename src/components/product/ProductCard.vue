@@ -1,12 +1,32 @@
 <script setup>
 import ProductPrice from './ProductPrice.vue';
-
+import { useCart } from '@/stores';
+import { ref } from 'vue';
 const props = defineProps({
     products: {
         type: Object,
         required: true,
     }
-})
+});
+const cart = useCart();
+let price = ref();
+function addToCart(product) {
+    if (product.discount) {
+        var firstPrice = product.price;
+        var discount = product.discount / 100;
+        var totalDiscount = firstPrice - firstPrice * discount;
+        price.value = totalDiscount.toFixed();
+    } else {
+        price.value = product.price;
+    }
+    cart.addToCart({
+        id: product.id,
+        name: product.name,
+        price: price.value,
+        thumbnail: product.thumbnail
+    });
+}
+
 </script>
 
 <template>
@@ -35,7 +55,7 @@ const props = defineProps({
                     <product-price :price="product.price" :discount="product.discount" />
 
 
-                    <button class="product-add" title="Add to Cart">
+                    <button class="product-add" title="Add to Cart" @click="addToCart(product)">
                         <i class="fas fa-shopping-basket"></i><span>Add</span>
                     </button>
 
