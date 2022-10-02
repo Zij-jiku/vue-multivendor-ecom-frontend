@@ -1,6 +1,6 @@
 <script setup>
 import ProductPrice from './ProductPrice.vue';
-import { useCart } from '@/stores';
+import { useCart, useNotification } from '@/stores';
 import { ref } from 'vue';
 const props = defineProps({
     products: {
@@ -9,6 +9,7 @@ const props = defineProps({
     }
 });
 const cart = useCart();
+const notify = useNotification();
 let price = ref();
 function addToCart(product) {
     if (product.discount) {
@@ -25,6 +26,7 @@ function addToCart(product) {
         price: price.value,
         thumbnail: product.thumbnail
     });
+    notify.Success(`${product.name} Added Your Cart`);
 }
 
 </script>

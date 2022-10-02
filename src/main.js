@@ -20,7 +20,6 @@ const app = createApp(App);
 app.use(pinia);
 app.use(router);
 app.use(ElementPlus);
-app.mount("#app");
 
 app.config.globalProperties.$filters = {
   currencySymbol(value) {
@@ -31,3 +30,5 @@ app.config.globalProperties.$filters = {
     return import.meta.env.VITE_API_URL + "/" + img;
   },
 };
+
+app.mount("#app");

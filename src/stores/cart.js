@@ -3,8 +3,28 @@ import { defineStore } from "pinia";
 export const useCart = defineStore("cart", {
   state: () => ({
     cartItems: [],
-    cartItemsCount: 0,
   }),
+  persist: {
+    paths: ["cartItems"],
+  },
+
+  getters: {
+    totalPirce: (state) => {
+      let total = 0;
+      state.cartItems.map((el) => {
+        total += el["price"] * el["quantity"];
+      });
+      return total;
+    },
+
+    cartItemsCount: (state) => {
+      let total = 0;
+      state.cartItems.map((el) => {
+        total += el["quantity"];
+      });
+      return total;
+    },
+  },
 
   actions: {
     addToCart(product) {
@@ -22,7 +42,28 @@ export const useCart = defineStore("cart", {
       } else {
         this.cartItems.push(item);
       }
-      this.cartItemsCount++;
+    },
+
+    async destroy(index) {
+      if (this.cartItems.length > 0) {
+        this.cartItems.splice(index, 1);
+      }
+    },
+
+    async increment(index) {
+      if (this.cartItems.length > 0) {
+        if (this.cartItems[index]["quantity"] !== 10) {
+          this.cartItems[index]["quantity"] += 1;
+        }
+      }
+    },
+
+    async decrement(index) {
+      if (this.cartItems.length > 0) {
+        if (this.cartItems[index]["quantity"] !== 1) {
+          this.cartItems[index]["quantity"] -= 1;
+        }
+      }
     },
   },
 });

@@ -8,7 +8,7 @@ const router = useRouter();
 const auth = useAuth();
 const notify = useNotification();
 const { user, loading } = storeToRefs(auth);
-const { cartItemsCount } = storeToRefs(useCart());
+const { cartItemsCount, totalPirce } = storeToRefs(useCart());
 
 const userLogout = async () => {
   const res = await auth.logout();
@@ -110,7 +110,7 @@ function cartShow() {
 
             <button class="header-widget header-cart" @click="cartShow" title="Cartlist">
               <i class="fas fa-shopping-basket"></i><sup>{{ cartItemsCount }}</sup><span>total
-                price<small>$345.00</small></span>
+                price<small>{{ $filters.currencySymbol(totalPirce) }}</small></span>
             </button>
           </div>
         </div>
