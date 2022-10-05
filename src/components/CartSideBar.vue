@@ -39,8 +39,14 @@ function decrementCart(index) {
                 </div>
                 <button class="cart-close" @click="cartClose"><i class="icofont-close"></i></button>
             </div>
-            <ul class="cart-list" v-if="cartItemsCount !== 0">
-                <li class="cart-item" v-for="(cart,index) in cartItems" :key="index">
+
+            <TransitionGroup name="list" tag="ul" class="cart-list" v-if="cartItemsCount !== 0">
+                <li v-for="item in items" :key="item">
+                    {{ item }}
+                </li>
+
+
+                <li class="cart-item" v-for="(cart,index) in cartItems" :key="cart.id">
                     <div class="cart-media">
                         <a href="#"><img :src="$filters.imagePath(cart.thumbnail)" alt="product" /></a><button
                             class="cart-delete">
@@ -66,8 +72,8 @@ function decrementCart(index) {
                         </div>
                     </div>
                 </li>
+            </TransitionGroup>
 
-            </ul>
 
             <ul class="cart-list" v-else>
                 <h3 class="text-center mt-5">Please add to cart</h3>
@@ -84,3 +90,24 @@ function decrementCart(index) {
 
     </div>
 </template>
+
+<style>
+.list-move,
+/* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+    position: absolute;
+}
+</style>
