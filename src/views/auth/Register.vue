@@ -1,6 +1,6 @@
 <script setup>
 // import
-import { useAuth , useNotification } from '@/stores';
+import { useAuth, useNotification } from '@/stores';
 import { reactive, ref } from 'vue';
 import { Field, Form } from 'vee-validate';
 import { useRouter } from 'vue-router'
@@ -23,9 +23,10 @@ const schema = yup.object({
         .oneOf([yup.ref('password'), null], 'Passwords Dose not match'),
 });
 
-const onSubmit = async (values, { setErrors }) => {
+const onSubmit = async (values, { setErrors, resetForm }) => {
     const res = await auth.register(values);
     if (res.status) {
+        resetForm();
         otpSent.value = true;
         setTime(120);
         notify.Success("OTP Sent Successfully!");
@@ -135,8 +136,9 @@ const resentOtp = async () => {
                                             :class="{'is-invalid' : errors.otp_code}" v-model="verifyForm.otp_code"
                                             placeholder="Otp Verify" />
 
-                                            <a href="javascript:void(0)" class ="resent_btn" v-if="timeLeft === '00:00'" @click="resentOtp">Re-Sent OTP</a>
-                                            <a href="javascript:void(0)" class ="resent_btn" v-else>{{ timeLeft }}</a>
+                                        <a href="javascript:void(0)" class="resent_btn" v-if="timeLeft === '00:00'"
+                                            @click="resentOtp">Re-Sent OTP</a>
+                                        <a href="javascript:void(0)" class="resent_btn" v-else>{{ timeLeft }}</a>
 
 
                                         <span class="text-danger" v-if="errors.otp_code"> {{ errors.otp_code }} </span>

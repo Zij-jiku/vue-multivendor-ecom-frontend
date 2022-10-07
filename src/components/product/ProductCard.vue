@@ -1,6 +1,6 @@
 <script setup>
 import ProductPrice from './ProductPrice.vue';
-import { useCart, useNotification } from '@/stores';
+import { useCart, useNotification, useAuth } from '@/stores';
 import { ref } from 'vue';
 const props = defineProps({
     products: {
@@ -8,7 +8,10 @@ const props = defineProps({
         required: true,
     }
 });
+
+
 const cart = useCart();
+const auth = useAuth();
 const notify = useNotification();
 let price = ref();
 function addToCart(product) {
@@ -29,6 +32,14 @@ function addToCart(product) {
     notify.Success(`${product.name} Added Your Cart`);
 }
 
+const addToWhishlist = () => {
+    if (auth.user.data) {
+        alert('login ache');
+    } else {
+        $('#login-modal').modal('show');
+    }
+}
+
 </script>
 
 <template>
@@ -42,8 +53,10 @@ function addToCart(product) {
                         <label class="label-text new">{{ product.conditions }}</label>
                         <label class="label-text sale">{{ product.discount }}%</label>
                     </div>
-                    <button class="product-wish wish">
-                        <i class="fas fa-heart"></i></button>
+                    <button class="product-wish wish" @click.prevent="addToWhishlist">
+                        <i class="fas fa-heart"></i>
+                    </button>
+
                     <router-link class="product-image" :to="{name: 'product.details'}">
                         <img :src="$filters.imagePath(product.thumbnail)" alt="product" />
                     </router-link>

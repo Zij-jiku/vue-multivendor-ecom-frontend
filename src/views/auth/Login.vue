@@ -1,5 +1,5 @@
 <script setup>
-import { useAuth , useNotification } from '@/stores';
+import { useAuth, useNotification } from '@/stores';
 import { ref } from 'vue';
 import { Field, Form } from 'vee-validate';
 import { useRouter } from 'vue-router'
@@ -23,8 +23,6 @@ const onSubmit = async (values, { setErrors }) => {
         setErrors(res);
     }
 }
-
-
 // password show hide
 const showPassword = ref(false);
 const toggleShow = () => {
@@ -75,7 +73,8 @@ const toggleShow = () => {
                                     </div>
                                     <div class="form-button">
                                         <button type="submit" :disable="isSubmitting"> login
-                                        <span v-show="isSubmitting" class="spinner-border spinner-border-sm mx-1"></span>
+                                            <span v-show="isSubmitting"
+                                                class="spinner-border spinner-border-sm mx-1"></span>
                                         </button>
 
 

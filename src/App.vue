@@ -1,5 +1,5 @@
 <script setup>
-import { HeaderPart, NavBar, CartSideBar, MobileMenu, NewsPart, FooterPart } from '@/components';
+import { HeaderPart, NavBar, CartSideBar, MobileMenu, NewsPart, FooterPart, LoginModal } from '@/components';
 </script>
 
 
@@ -29,6 +29,8 @@ import { HeaderPart, NavBar, CartSideBar, MobileMenu, NewsPart, FooterPart } fro
       </transition>
     </router-view>
     <!-- Main Content Load End -->
+
+    <LoginModal />
 
     <!-- NewsPart && Intro Part -->
     <NewsPart />
