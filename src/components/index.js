@@ -5,3 +5,4 @@ export { default as MobileMenu } from "./MobileMenu.vue";
 export { default as NewsPart } from "./NewsPart.vue";
 export { default as FooterPart } from "./FooterPart.vue";
 export { default as LoginModal } from "./LoginModal.vue";
+export { default as LoginForm } from "./LoginForm.vue";

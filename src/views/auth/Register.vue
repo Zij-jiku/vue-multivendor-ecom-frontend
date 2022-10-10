@@ -1,7 +1,7 @@
 <script setup>
 // import
 import { useAuth, useNotification } from '@/stores';
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { Field, Form } from 'vee-validate';
 import { useRouter } from 'vue-router'
 import * as yup from 'yup';
@@ -21,6 +21,10 @@ const schema = yup.object({
         .required("Password Confirmation is a required field")
         .min(8)
         .oneOf([yup.ref('password'), null], 'Passwords Dose not match'),
+});
+
+onMounted(() => {
+    $('#login-modal').modal('hide');
 });
 
 const onSubmit = async (values, { setErrors, resetForm }) => {
@@ -62,6 +66,8 @@ const otpVerify = async (values, { setErrors }) => {
         setErrors(res);
     }
 };
+
+
 
 
 // CountDown
