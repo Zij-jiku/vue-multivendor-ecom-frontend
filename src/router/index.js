@@ -6,8 +6,6 @@ import { UserProfile, UserOrders, UserWishlist } from '@/views/users';
 import { UserLogin, UserRegister } from '@/views/auth';
 import { useAuth } from '@/stores'
 
-
-
 const routes = [
   { path: '/', name: "index.page", component: Index, meta: { title: 'Home' } },
   { path: '/auth/login', name: "user.login", component: UserLogin, meta: { title: 'Login', guest: true } },

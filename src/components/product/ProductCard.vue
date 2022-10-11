@@ -1,6 +1,6 @@
 <script setup>
 import ProductPrice from './ProductPrice.vue';
-import { useCart, useNotification, useAuth } from '@/stores';
+import { useCart, useNotification, useAuth, useWishlist } from '@/stores';
 import { ref } from 'vue';
 const props = defineProps({
     products: {
@@ -12,6 +12,7 @@ const props = defineProps({
 
 const cart = useCart();
 const auth = useAuth();
+const wishlist = useWishlist();
 const notify = useNotification();
 let price = ref();
 function addToCart(product) {
@@ -32,9 +33,16 @@ function addToCart(product) {
     notify.Success(`${product.name} Added Your Cart`);
 }
 
-const addToWhishlist = () => {
+const addToWhishlist = async (product) => {
     if (auth.user.data) {
-        alert('login ache');
+        // addTowishlist
+        let res = await wishlist.addToWishlist(product);
+        if (res.status === 201) {
+            notify.Success(`${product.name} Added Your Wishlist`);
+        } else {
+            notify.Warning(`${product.name} Remove Your Wishlist`);
+        }
+
     } else {
         $('#login-modal').modal('show');
     }
@@ -53,7 +61,7 @@ const addToWhishlist = () => {
                         <label class="label-text new">{{ product.conditions }}</label>
                         <label class="label-text sale">{{ product.discount }}%</label>
                     </div>
-                    <button class="product-wish wish" @click.prevent="addToWhishlist">
+                    <button class="product-wish wish" @click.prevent="addToWhishlist(product)">
                         <i class="fas fa-heart"></i>
                     </button>
 
