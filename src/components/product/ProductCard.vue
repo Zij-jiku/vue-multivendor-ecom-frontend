@@ -62,7 +62,8 @@ const addToWhishlist = async (product) => {
                         <label class="label-text sale">{{ product.discount }}%</label>
                     </div>
                     <button class="product-wish wish" @click.prevent="addToWhishlist(product)">
-                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-spinner fa-spin" v-if="wishlist.loading == product.id"></i>
+                        <i class="fas fa-heart" v-else></i>
                     </button>
 
                     <router-link class="product-image" :to="{name: 'product.details'}">
@@ -89,3 +90,9 @@ const addToWhishlist = async (product) => {
     </div>
 
 </template>
+
+<style scoped>
+.cs_red {
+    color: red;
+}
+</style>

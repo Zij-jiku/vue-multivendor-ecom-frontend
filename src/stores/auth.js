@@ -15,6 +15,9 @@ export const useAuth = defineStore('auth', {
       try {
         const res = await axiosInstance.post("/user/register", formData);
         if (res.status == 200) {
+          console.log('Ok');
+          console.log(res.data);
+          this.user = res.data;
           return new Promise((resolve) => {
             resolve(res.data);
           });
@@ -52,7 +55,7 @@ export const useAuth = defineStore('auth', {
 
     async resentOtp(phone) {
       try {
-        const res = await axiosInstance.post("/user/otp-resent", {phone: phone});
+        const res = await axiosInstance.post("/user/otp-resent", { phone: phone });
         if (res.status == 200) {
           this.user = res.data;
           return new Promise((resolve) => {
@@ -90,7 +93,7 @@ export const useAuth = defineStore('auth', {
       }
     },
 
-    async logout(){
+    async logout() {
       this.loading = true;
       try {
         const res = await axiosInstance.post("/user/logout");
@@ -100,8 +103,8 @@ export const useAuth = defineStore('auth', {
             resolve(res.data);
           });
         }
-      } catch (error) {}
-      finally{
+      } catch (error) { }
+      finally {
         this.loading = false;
       }
     }

@@ -104,9 +104,10 @@ function cartShow() {
               </ul>
             </li>
 
-            <router-link :to="{name: 'user.wishlist'}" class="header-widget" title="Wishlist">
-              <i class="fas fa-heart"></i><sup>0</sup>
+            <router-link v-if="auth.user.data" :to="{name: 'user.wishlist'}" class="header-widget" title="Wishlist">
+              <i class="fas fa-heart"></i><sup>{{ user.meta.wishlists.length }}</sup>
             </router-link>
+
 
             <button class="header-widget header-cart" @click="cartShow" title="Cartlist">
               <i class="fas fa-shopping-basket"></i><sup>{{ cartItemsCount }}</sup><span>total
