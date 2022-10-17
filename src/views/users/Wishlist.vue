@@ -2,6 +2,7 @@
 import { ProductPrice } from '@/components/product';
 import { useNotification, useAuth, useWishlist } from '@/stores';
 import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 const auth = useAuth();
 const { user } = storeToRefs(auth);
 const wishlist = useWishlist();
@@ -12,8 +13,11 @@ const deleteToWhishlist = async (product) => {
     if (res.status === 200) {
         notify.Success(`${product.name} Delete Your Wishlist`);
     }
-
 }
+
+onMounted(() => {
+    wishlist.index();
+});
 
 
 </script>

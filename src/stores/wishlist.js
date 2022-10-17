@@ -9,15 +9,13 @@ export const useWishlist = defineStore("wishlist", {
   }),
 
   actions: {
-    async getData() {
+    async index() {
       try {
-        const res = await axiosInstance.get("/wishlists");
+        const res = await axiosInstance.get("/user/wishlists");
+        console.log(res.data);
         if (res.status == 200) {
-          this.wishlists = res.data;
-          return new Promise((resolve) => {
-            resolve(res.data);
-          });
-
+          const auth = useAuth();
+          auth.user.meta.wishlists = res.data.data;
         }
       } catch (error) {
         if (error.response.data) {
