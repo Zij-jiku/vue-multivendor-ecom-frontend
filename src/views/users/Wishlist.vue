@@ -1,9 +1,10 @@
 <script setup>
 import { ProductPrice } from '@/components/product';
-import { useNotification, useAuth, useWishlist } from '@/stores';
+import { useNotification, useAuth, useWishlist, useCart } from '@/stores';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 const auth = useAuth();
+const cart = useCart();
 const { user } = storeToRefs(auth);
 const wishlist = useWishlist();
 const notify = useNotification();
@@ -14,12 +15,29 @@ const deleteToWhishlist = async (product) => {
         notify.Success(`${product.name} Delete Your Wishlist`);
     }
 }
-
+// Add to Cart Function
+let price = ref();
+function addToCart(product) {
+    if (product.discount) {
+        var firstPrice = product.price;
+        var discount = product.discount / 100;
+        var totalDiscount = firstPrice - firstPrice * discount;
+        price.value = totalDiscount.toFixed();
+    } else {
+        price.value = product.price;
+    }
+    cart.addToCart({
+        id: product.id,
+        name: product.name,
+        price: price.value,
+        thumbnail: product.thumbnail
+    });
+    notify.Success(`${product.name} Added Your Cart`);
+}
+// end
 onMounted(() => {
     wishlist.index();
 });
-
-
 </script>
 
 <template>
@@ -65,7 +83,8 @@ onMounted(() => {
                                             <product-price :price="product.price" :discount="product.discount" />
                                         </td>
                                         <td class="table-shop">
-                                            <button class="product-add" title="Add to Cart">
+                                            <button class="product-add" title="Add to Cart"
+                                                @click.prevent="addToCart(product)">
                                                 add to cart</button><!-- fas fa-spinner fa-spin -->
                                         </td>
                                         <td class="table-action">

@@ -12,7 +12,6 @@ export const useWishlist = defineStore("wishlist", {
     async index() {
       try {
         const res = await axiosInstance.get("/user/wishlists");
-        console.log(res.data);
         if (res.status == 200) {
           const auth = useAuth();
           auth.user.meta.wishlists = res.data.data;
