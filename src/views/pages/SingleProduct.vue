@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="single-banner inner-section" style="
-          background: url('/website/images/single-banner.jpg') center center
+          background: url('@/assets/images/single-banner.jpg') center center
             no-repeat;
         ">
             <div class="container">
@@ -302,5 +302,5 @@
 </template>
 
 <style>
-    @import "@/assets/css/product-details.css";
+@import "@/assets/css/product-details.css";
 </style>
