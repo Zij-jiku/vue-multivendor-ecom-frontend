@@ -15,6 +15,7 @@ const deleteToWhishlist = async (product) => {
         notify.Success(`${product.name} Delete Your Wishlist`);
     }
 }
+
 // Add to Cart Function
 let price = ref();
 function addToCart(product) {
@@ -35,6 +36,7 @@ function addToCart(product) {
     notify.Success(`${product.name} Added Your Cart`);
 }
 // end
+
 onMounted(() => {
     wishlist.index();
 });

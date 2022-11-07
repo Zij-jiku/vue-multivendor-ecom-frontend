@@ -1,3 +1,19 @@
+<script setup>
+import { useNotification, useSeller } from '@/stores';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
+const seller = useSeller();
+const { sellers } = storeToRefs(seller);
+const notify = useNotification();
+
+onMounted(() => {
+    seller.index();
+    console.log(seller);
+});
+</script>
+
+
+
 <template>
     <div>
         <section class="inner-section single-banner" style="
@@ -12,6 +28,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
+
                         <div class="top-filter">
                             <div class="filter-show">
                                 <label class="filter-label">Show :</label><select class="form-select filter-select">
@@ -27,15 +44,16 @@
                     </div>
                 </div>
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 isotope-items">
-                    <div class="col">
+
+                    <div class="col" v-for="(seller, index) in sellers.data" key="index">
                         <div class="product-card">
                             <ul>
                                 <li>
-                                    <router-link :to="{name:'seller.store'}" class="suggest-card"><img
-                                            src="http://127.0.0.1:8000/uploads/seller/shop/06302022121319pBkM9ZNbR53vC4RO_250_250.png"
-                                            alt="seller lists" /></router-link>
+                                    <router-link :to="{ name: 'seller.store' }" class="suggest-card"><img
+                                            :src=$filters.imagePath(seller.image) alt="seller lists" />
+                                    </router-link>
                                     <div class="brand-meta">
-                                        <h4 class="text-center">dafa</h4>
+                                        <h4 class="text-center">{{ seller.shop_name }}</h4>
                                         <p class="text-center">0 Products</p>
                                         <div class="form-button">
                                             <button type="submit">
@@ -47,126 +65,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <router-link :to="{name:'seller.store'}" class="suggest-card"><img
-                                            src="http://127.0.0.1:8000/uploads/seller/shop/06302022121319pBkM9ZNbR53vC4RO_250_250.png"
-                                            alt="seller lists" /></router-link>
-                                    <div class="brand-meta">
-                                        <h4 class="text-center">dafa</h4>
-                                        <p class="text-center">0 Products</p>
-                                        <div class="form-button">
-                                            <button type="submit">
-                                                Visit Store <i class="fas fa-angle-right"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a href="shop-4column.html" class="suggest-card"><img
-                                            src="http://127.0.0.1:8000/uploads/seller/shop/06302022121319pBkM9ZNbR53vC4RO_250_250.png"
-                                            alt="seller lists" /></a>
-                                    <div class="brand-meta">
-                                        <h4 class="text-center">data is missing</h4>
-                                        <p class="text-center">0 Products</p>
-                                        <div class="form-button">
-                                            <button type="submit">
-                                                Visit Store <i class="fas fa-angle-right"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a href="shop-4column.html" class="suggest-card"><img
-                                            src="http://127.0.0.1:8000/uploads/seller/shop/06302022121319pBkM9ZNbR53vC4RO_250_250.png"
-                                            alt="seller lists" /></a>
-                                    <div class="brand-meta">
-                                        <h4 class="text-center">testijng data</h4>
-                                        <p class="text-center">0 Products</p>
-                                        <div class="form-button">
-                                            <button type="submit">
-                                                Visit Store <i class="fas fa-angle-right"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a href="shop-4column.html" class="suggest-card"><img
-                                            src="http://127.0.0.1:8000/uploads/seller/shop/06302022121319pBkM9ZNbR53vC4RO_250_250.png"
-                                            alt="seller lists" /></a>
-                                    <div class="brand-meta">
-                                        <h4 class="text-center">any data</h4>
-                                        <p class="text-center">0 Products</p>
-                                        <div class="form-button">
-                                            <button type="submit">
-                                                Visit Store <i class="fas fa-angle-right"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a href="shop-4column.html" class="suggest-card"><img
-                                            src="http://127.0.0.1:8000/uploads/seller/shop/06302022121319pBkM9ZNbR53vC4RO_250_250.png"
-                                            alt="seller lists" /></a>
-                                    <div class="brand-meta">
-                                        <h4 class="text-center">SS Computer</h4>
-                                        <p class="text-center">0 Products</p>
-                                        <div class="form-button">
-                                            <button type="submit">
-                                                Visit Store <i class="fas fa-angle-right"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="product-card">
-                            <ul>
-                                <li>
-                                    <a href="shop-4column.html" class="suggest-card"><img
-                                            src="http://127.0.0.1:8000/uploads/seller/shop/07022022032357LeHFrk4a5SWRJcDf_250_250.jpg"
-                                            alt="seller lists" /></a>
-                                    <div class="brand-meta">
-                                        <h4 class="text-center">Uc Techonology</h4>
-                                        <p class="text-center">11 Products</p>
-                                        <div class="form-button">
-                                            <button type="submit">
-                                                Visit Store <i class="fas fa-angle-right"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="row">

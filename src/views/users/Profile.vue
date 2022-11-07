@@ -22,24 +22,25 @@
                                 <div class="row">
                                     <div class="col-lg-2">
                                         <div class="profile-image">
-                                            <a href="#"><img src="images/user.png" alt="user" /></a>
+                                            <a href="#"><img src="/src/assets/images/user.png" alt="user"
+                                                    class="profile_img" /></a>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-label">name</label><input class="form-control"
-                                                type="text" value="Miron Mahmud" />
+                                            <label class="form-label">Full Name</label><input class="form-control"
+                                                type="text" value="Zij" />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-label">Email</label><input class="form-control"
-                                                type="email" value="w3 Coders@gmail.com" />
+                                            <label class="form-label">Email Address</label><input class="form-control"
+                                                type="email" value="safzahidul.cse@gmail.com" />
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="profile-btn">
-                                            <a href="change-password.html">change pass.</a>
+                                            <a href="change-password.html">Change Password</a>
                                         </div>
                                     </div>
                                 </div>
@@ -235,3 +236,11 @@
 
     </div>
 </template>
+
+<style>
+.profile_img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+</style>
