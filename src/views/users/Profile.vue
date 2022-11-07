@@ -22,7 +22,7 @@
                                 <div class="row">
                                     <div class="col-lg-2">
                                         <div class="profile-image">
-                                            <a href="#"><img src="/src/assets/images/user.png" alt="user"
+                                            <a href="#"><img src="@/assets/images/user.png" alt="user"
                                                     class="profile_img" /></a>
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment active">
-                                            <img src="/src/assets/images/payment/png/01.png" alt="payment" />
+                                            <img src="@/assets/images/payment/png/01.png" alt="payment" />
                                             <h4>card number</h4>
                                             <p>
                                                 <span>****</span><span>****</span><span>****</span><sup>1876</sup>
@@ -204,7 +204,7 @@
                                     </div>
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment">
-                                            <img src="/src/assets/images/payment/png/02.png" alt="payment" />
+                                            <img src="@/assets/images/payment/png/02.png" alt="payment" />
                                             <h4>card number</h4>
                                             <p>
                                                 <span>****</span><span>****</span><span>****</span><sup>1876</sup>
@@ -216,7 +216,7 @@
                                     </div>
                                     <div class="col-md-6 col-lg-4 alert fade show">
                                         <div class="payment-card payment">
-                                            <img src="/src/assets/images/payment/png/03.png" alt="payment" />
+                                            <img src="@/assets/images/payment/png/03.png" alt="payment" />
                                             <h4>card number</h4>
                                             <p>
                                                 <span>****</span><span>****</span><span>****</span><sup>1876</sup>
