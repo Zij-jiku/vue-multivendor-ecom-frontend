@@ -160,7 +160,7 @@
                                 <ul class="review-list">
                                     <li class="review-item">
                                         <div class="review-media">
-                                            <a class="review-avatar" href="#"><img src="/website/images/avatar/01.jpg"
+                                            <a class="review-avatar" href="#"><img src="@/assets/images/user.png"
                                                     alt="review" /></a>
                                             <h5 class="review-meta">
                                                 <a href="#">Sarjid Islam</a><span>June 02, 2022</span>
@@ -187,7 +187,7 @@
                                             <li class="review-reply-item">
                                                 <div class="review-media">
                                                     <a class="review-avatar" href="#"><img
-                                                            src="/website/images/avatar/02.jpg" alt="review" /></a>
+                                                            src="@/assets/images/user.png" alt="review" /></a>
                                                     <h5 class="review-meta">
                                                         <a href="#">labonno khan</a><span><b>author -</b>June 02,
                                                             2020</span>
@@ -208,7 +208,7 @@
                                             <li class="review-reply-item">
                                                 <div class="review-media">
                                                     <a class="review-avatar" href="#"><img
-                                                            src="/website/images/avatar/03.jpg" alt="review" /></a>
+                                                            src="@/assets/images/user.png" alt="review" /></a>
                                                     <h5 class="review-meta">
                                                         <a href="#">tahmina bonny</a><span>June 02, 2020</span>
                                                     </h5>
@@ -229,7 +229,7 @@
                                     </li>
                                     <li class="review-item">
                                         <div class="review-media">
-                                            <a class="review-avatar" href="#"><img src="/website/images/avatar/04.jpg"
+                                            <a class="review-avatar" href="#"><img src="@/assets/images/user.png"
                                                     alt="review" /></a>
                                             <h5 class="review-meta">
                                                 <a href="#">shipu shikdar</a><span>June 02, 2020</span>
