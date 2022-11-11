@@ -13,7 +13,7 @@ const routes = [
   { path: '/shop-page', name: "shop.page", component: Shop, meta: { title: 'Shop' } },
   { path: '/single-product', name: "product.details", component: SingleProduct, meta: { title: 'Single-product' } },
   { path: '/seller-list', name: "seller.page", component: SellerPage, meta: { title: 'Seller-list' } },
-  { path: '/seller-store', name: "seller.store", component: SellerStore, meta: { title: 'Seller-store' } },
+  { path: '/seller-store/:slug', name: "seller.store", component: SellerStore, meta: { title: 'Seller-store' } },
   { path: '/seller-apply', name: "seller.apply", component: SellerApply, meta: { title: 'Seller-form' } },
 
   // users route

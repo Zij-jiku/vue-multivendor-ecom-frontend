@@ -48,12 +48,12 @@ onMounted(() => {
                         <div class="home-grid-slider slider-arrow slider-dots">
                             <template v-if="sliders.data">
                                 <swiper :spaceBetween="30" :loop="true" :autoplay="{
-                                delay: 2000,
+                                    delay: 2000,
                                 }" :pagination="{
-                                clickable: true,
-                                }" :modules="modules" class="mySwiper">
+    clickable: true,
+}" :modules="modules" class="mySwiper">
 
-                                    <swiper-slide v-for="(slider,index) in sliders.data" :key="index">
+                                    <swiper-slide v-for="(slider, index) in sliders.data" :key="index">
                                         <img :src="$filters.imagePath(slider.image)" alt="banner-slider" />
                                     </swiper-slide>
                                 </swiper>
@@ -81,7 +81,7 @@ onMounted(() => {
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
                     <template v-if="categories.data">
-                        <div class="col" v-for="(category,index) in categories.data" :key="index">
+                        <div class="col" v-for="(category, index) in categories.data" :key="index">
                             <div class="product-card">
                                 <ul>
                                     <li>
@@ -118,7 +118,9 @@ onMounted(() => {
                 </div>
 
                 <template v-if="sales.data">
-                    <ProductCard :products="sales" />
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                        <ProductCard :product="product" v-for="(product, index) in sales.data" :key="product.id" />
+                    </div>
                 </template>
 
                 <template v-else>
@@ -148,7 +150,9 @@ onMounted(() => {
                 </div>
 
                 <template v-if="popular.data">
-                    <ProductCard :products="popular" />
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                        <ProductCard :product="product" v-for="(product, index) in popular.data" :key="product.id" />
+                    </div>
                 </template>
 
                 <template v-else>
@@ -179,7 +183,9 @@ onMounted(() => {
                 </div>
 
                 <template v-if="features.data">
-                    <ProductCard :products="features" />
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                        <ProductCard :product="product" v-for="(product, index) in features.data" :key="product.id" />
+                    </div>
                 </template>
 
                 <template v-else>
@@ -210,7 +216,9 @@ onMounted(() => {
                 </div>
 
                 <template v-if="winters.data">
-                    <ProductCard :products="winters" />
+                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                        <ProductCard :product="product" v-for="(product, index) in winters.data" :key="product.id" />
+                    </div>
                 </template>
 
                 <template v-else>
@@ -243,7 +251,7 @@ onMounted(() => {
                     <div class="col">
                         <ul class="new-slider slider-arrow">
                             <swiper :slidesPerView="5" :slidesPerGroup="5" :loop="true" :autoplay="{
-                            delay: 2000,
+                                delay: 2000,
                             }" :loopFillGroupWithBlank="true" :navigation="true" :modules="newSlide" class="mySwiper">
                                 <swiper-slide v-for="(product, index) in newItems.data" :key="index">
                                     <li>
