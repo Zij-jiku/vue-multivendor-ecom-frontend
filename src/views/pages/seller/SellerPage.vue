@@ -24,7 +24,7 @@ const show = ref(20);
 
 <template>
     <div>
-        <section class="inner-section single-banner" style="background: url('//website/images/single-banner.jpg') center center
+        <section class="inner-section single-banner" style="background: url('src/assets/images/single-banner.jpg') center center
             no-repeat;
         ">
             <div class="container">

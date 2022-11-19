@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="single-banner inner-section" style="
-          background: url('@/assets/images/single-banner.jpg') center center
+          background: url('src/assets/images/single-banner.jpg') center center
             no-repeat;
         ">
             <div class="container">

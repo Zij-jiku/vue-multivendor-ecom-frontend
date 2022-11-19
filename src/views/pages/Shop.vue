@@ -1,7 +1,31 @@
+<script setup>
+import { onMounted, ref } from 'vue';
+import { useShop } from '@/stores';
+// import component
+import { Bootstrap4Pagination } from 'laravel-vue-pagination';
+import { ProductCard } from '@/components/product';
+import { storeToRefs } from 'pinia';
+
+const shop = useShop();
+const show = ref(10);
+const sort = ref('default');
+const { products } = storeToRefs(shop);
+
+const getProducts = (page = 1) => {
+    shop.index(page, show.value, sort.value);
+}
+
+onMounted(() => {
+    getProducts();
+});
+
+</script>
+
+
 <template>
     <div>
         <section class="inner-section single-banner"
-            style="background: url(@/assets/images/single-banner.jpg) no-repeat center">
+            style="background: url('src/assets/images/single-banner.jpg') no-repeat center">
             <div class="container">
                 <h2>Shop Page</h2>
             </div>
@@ -11,8 +35,8 @@
                 <div class="row content-reverse">
                     <div class="col-lg-3">
                         <!-- <div class="shop-widget-promo">
-            <a href="#"><img src="images/promo/shop/01.jpg" alt="promo" /></a>
-          </div> -->
+                            <a href="#"><img src="images/promo/shop/01.jpg" alt="promo" /></a>
+                        </div> -->
                         <div class="shop-widget">
                             <h6 class="shop-widget-title">Filter by Price</h6>
                             <form>
@@ -171,87 +195,87 @@
                     </div>
                     <div class="col-lg-9">
                         <div class="row">
+
                             <div class="col-lg-12">
-                                <div class="top-filter">
+                                <div class="top-filter" v-if="products">
+
                                     <div class="filter-show">
-                                        <label class="filter-label">Show :</label><select
-                                            class="form-select filter-select">
-                                            <option value="1">12</option>
-                                            <option value="2">24</option>
-                                            <option value="3">36</option>
+                                        <label class="filter-label">Show :</label>
+                                        <select class="form-select filter-select" v-model="show"
+                                            @change.prevent="getProducts">
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                            <option value="30">30</option>
+                                            <option value="40">40</option>
+                                            <option value="50">50</option>
+                                            <option value="70">70</option>
+                                            <option value="100">100</option>
                                         </select>
                                     </div>
+
                                     <div class="filter-short">
-                                        <label class="filter-label">Short by :</label><select
-                                            class="form-select filter-select">
-                                            <option selected>default</option>
-                                            <option value="3">trending</option>
-                                            <option value="1">featured</option>
-                                            <option value="2">recommend</option>
+                                        <label class="filter-label">Short by :</label>
+                                        <select class="form-select filter-select" v-model="sort"
+                                            @change.prevent="getProducts">
+                                            <option value="default">default</option>
+                                            <option value="new">New</option>
+                                            <option value="popular">Popular</option>
+                                            <option value="winter">Winter</option>
+                                            <option value="feature">Feature</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
-                            <div class="col">
-                                <div class="product-card product-disable">
-                                    <div class="product-media">
-                                        <div class="product-label">
-                                            <label class="label-text rate">Popular</label>
-                                            <label class="view-label off">-2%</label>
-                                        </div>
-                                        <button class="product-wish wish">
-                                            <i class="fas fa-heart"></i>
-                                        </button>
-                                        <!-- <a class="product-image" href="product-video.html">
-                                            <img src="images/product/06.jpg" alt="product" />
-                                        </a> -->
-                                    </div>
-                                    <div class="product-content">
-                                        <h6 class="product-name">
-                                            <a href="product-video.html">Products Name</a>
-                                        </h6>
-                                        <h6 class="product-price">
-                                            <del>$34</del><span>$28<small></small></span>
-                                        </h6>
-                                        <button class="product-add" title="Add to Cart">
-                                            <i class="fas fa-shopping-basket"></i><span>Add</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+
+                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4" v-if="products">
+                            <ProductCard :product="product" v-for="(product, index) in products.data"
+                                :key="product.id" />
                         </div>
-                        <!-- <div class="row">
+
+
+                        <div class="row" v-if="products.data">
                             <div class="col-lg-12">
                                 <div class="bottom-paginate">
-                                    <p class="page-info">Showing 12 of 60 Results</p>
+
+                                    Showing {{ products.meta.per_page }} of {{ products.meta.total }} Results
+                                    <p class="page-info"></p>
                                     <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left"></i></a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link active" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">3</a>
-                                        </li>
-                                        <li class="page-item">...</li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">60</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#"><i
-                                                    class="fas fa-long-arrow-alt-right"></i></a>
-                                        </li>
+
+                                        <Bootstrap4Pagination :data="products" @pagination-change-page="getProducts">
+
+                                            <nav v-bind="$attrs" aria-label="Pagination"
+                                                v-if="slotProps.computed.total > slotProps.computed.perPage">
+                                                <button :disabled="!slotProps.computed.prevPageUrl"
+                                                    v-on="slotProps.prevButtonEvents">
+                                                    <slot name="prev-nav">
+                                                        Previous
+                                                    </slot>
+                                                </button>
+
+                                                <button :aria-current="slotProps.computed.currentPage ? 'page' : null"
+                                                    v-for="(page, key) in slotProps.computed.pageRange" :key="key"
+                                                    v-on="slotProps.pageButtonEvents(page)">
+                                                    {{ page }}
+                                                </button>
+
+                                                <button :disabled="!slotProps.computed.nextPageUrl"
+                                                    v-on="slotProps.nextButtonEvents">
+                                                    <slot name="next-nav">
+                                                        Next
+                                                    </slot>
+                                                </button>
+                                            </nav>
+                                        </Bootstrap4Pagination>
+
+
                                     </ul>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
+                        <!-- end row -->
                     </div>
+
                 </div>
             </div>
         </section>

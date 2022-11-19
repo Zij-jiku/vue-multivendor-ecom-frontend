@@ -12,7 +12,7 @@ const seller = useSeller();
 const { products } = storeToRefs(seller);
 
 
-const show = ref(1);
+const show = ref(10);
 const sort = ref('default');
 
 const getSellersProducts = (page = 1) => {
@@ -29,7 +29,8 @@ onMounted(() => {
 <template>
     <div>
         <section class="single-banner"
-            style="background: url('//website/images/single-banner.jpg') center center no-repeat;">
+            style="background: url('https://png.pngtree.com/background/20210712/original/pngtree-colorful-banner-red-and-yellow-background-picture-image_1176793.jpg') center center no-repeat">
+
             <div class="container">
                 <h2>Seller Products</h2>
             </div>
@@ -79,6 +80,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
+
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5" v-if="products.products">
                     <ProductCard :product="product" v-for="(product, index) in products.products.data"
                         :key="product.id" />

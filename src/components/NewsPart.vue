@@ -1,6 +1,7 @@
 <template>
     <div>
-        <section class="news-part" style="background: url(images/newsletter.jpg) no-repeat center">
+        <section class="news-part"
+            style="background: url('https://png.pngtree.com/background/20210712/original/pngtree-colorful-banner-red-and-yellow-background-picture-image_1176793.jpg') no-repeat center">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-5 col-lg-6 col-xl-7">
