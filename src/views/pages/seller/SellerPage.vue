@@ -112,26 +112,6 @@ const show = ref(20);
                                         </button>
                                     </nav>
                                 </Bootstrap4Pagination>
-
-                                <!-- <li class="page-item">
-                                    <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left"></i></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link active" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">...</li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">60</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
-                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -140,3 +120,10 @@ const show = ref(20);
         </section>
     </div>
 </template>
+
+<style scoped>
+.suggest-card img {
+    width: 100% !important;
+    height: 100px !important;
+}
+</style>

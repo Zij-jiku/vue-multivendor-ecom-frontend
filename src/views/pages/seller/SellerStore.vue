@@ -134,6 +134,6 @@ onMounted(() => {
     </div>
 </template>
 
-<style>
+<style scoped>
 @import "@/assets/css/brand-min.css";
 </style>

@@ -300,6 +300,8 @@ onMounted(() => {
     </div>
 </template>
 
-<style>
-
+<style scoped>
+.product-image img {
+    height: 170px !important;
+}
 </style>

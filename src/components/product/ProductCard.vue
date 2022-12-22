@@ -93,4 +93,8 @@ const addToWhishlist = async (product) => {
 .cs_red {
     color: red;
 }
+
+.product-image img {
+    height: 170px !important;
+}
 </style>
