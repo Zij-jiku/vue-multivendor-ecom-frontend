@@ -6,3 +6,4 @@ export * from "./product.js";
 export * from "./cart.js";
 export * from "./wishlist.js";
 export * from "./sellers.js";
+export * from "./shop.js";
