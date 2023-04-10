@@ -22,7 +22,7 @@
                                 <div class="row">
                                     <div class="col-lg-2">
                                         <div class="profile-image">
-                                            <a href="#"><img src="@/assets/images/user.png" alt="user"
+                                            <a href="#"><img src="" alt="user"
                                                     class="profile_img" /></a>
                                         </div>
                                     </div>

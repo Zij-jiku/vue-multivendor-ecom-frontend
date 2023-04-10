@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { ElNotification } from "element-plus";
-
-export const useNotification = defineStore("Notification", {
+export const useNotification = defineStore("notification", {
   state: () => ({
     type: {
       success: "success",
@@ -9,42 +8,49 @@ export const useNotification = defineStore("Notification", {
       info: "info",
       error: "error",
     },
+
+    position: "top-left",
+    duration: 2000,
   }),
 
   actions: {
-    async Success(msg) {
+    Success(msg) {
       ElNotification({
         title: "Success",
         message: msg,
         type: this.type.success,
-        position: "top-left",
+        position: this.position,
+        duration: this.duration,
       });
     },
 
-    async Warning(msg) {
+    Warning(msg) {
       ElNotification({
-        title: "Warning",
+        title: "Success",
         message: msg,
         type: this.type.warning,
-        position: "top-left",
+        position: this.position,
+        duration: this.duration,
       });
     },
 
-    async Info(msg) {
+    Info(msg) {
       ElNotification({
-        title: "Info",
+        title: "Success",
         message: msg,
         type: this.type.info,
-        position: "top-left",
+        position: this.position,
+        duration: this.duration,
       });
     },
 
-    async Error(msg) {
+    Error(msg) {
       ElNotification({
         title: "Error",
         message: msg,
         type: this.type.error,
-        position: "top-left",
+        position: this.position,
+        duration: this.duration,
       });
     },
   },

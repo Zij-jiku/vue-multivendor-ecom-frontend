@@ -1,3 +1,4 @@
-export { default as SliderSkeleton } from "./SliderSkeleton.vue";
-export { default as CategorySkeleton } from "./CategorySkeleton.vue";
-export { default as ProductSkeleton } from "./ProductSkeleton.vue";
+export { default as HomeSliderScreen } from "./HomeSliderScreen.vue";
+export { default as CategoryScreen } from "./CategoryScreen.vue";
+export { default as ProductScreen } from "./ProductScreen.vue";
+export { default as SidebarScreen } from "./ShopSidebarScreen.vue";

@@ -1,19 +1,22 @@
 import { defineStore } from "pinia";
-
+import { ref } from "vue";
 export const useCart = defineStore("cart", {
   state: () => ({
     cartItems: [],
+    isOpen: false,
   }),
+
   persist: {
     paths: ["cartItems"],
   },
 
   getters: {
-    totalPirce: (state) => {
+    totalPrice: (state) => {
       let total = 0;
       state.cartItems.map((el) => {
         total += el["price"] * el["quantity"];
       });
+
       return total;
     },
 
@@ -22,18 +25,39 @@ export const useCart = defineStore("cart", {
       state.cartItems.map((el) => {
         total += el["quantity"];
       });
+
       return total;
     },
   },
-
   actions: {
+    toggleCartSidebar() {
+      this.isOpen = !this.isOpen;
+    },
     addToCart(product) {
-      let item = product;
+      const price = ref();
+
+      if (product.discount) {
+        var firstprice = product.price;
+        var discount = product.discount / 100;
+        var totalPrice = firstprice - firstprice * discount;
+        price.value = totalPrice.toFixed();
+      } else {
+        price.value = product.price;
+      }
+
+      // let item = product;
+      let item = {
+        id: product.id,
+        name: product.name,
+        price: price.value,
+        thumbnail: product.thumbnail,
+      };
+
       item = { ...item, quantity: 1 };
 
       if (this.cartItems.length > 0) {
-        let hasItem = this.cartItems.some((i) => i.id === item.id);
-        if (hasItem) {
+        let boolean = this.cartItems.some((i) => i.id === item.id);
+        if (boolean) {
           let index = this.cartItems.findIndex((i) => i.id === item.id);
           this.cartItems[index]["quantity"] += 1;
         } else {
@@ -47,14 +71,6 @@ export const useCart = defineStore("cart", {
     async destroy(index) {
       if (this.cartItems.length > 0) {
         this.cartItems.splice(index, 1);
-      }
-    },
-
-    async increment(index) {
-      if (this.cartItems.length > 0) {
-        if (this.cartItems[index]["quantity"] !== 10) {
-          this.cartItems[index]["quantity"] += 1;
-        }
       }
     },
 

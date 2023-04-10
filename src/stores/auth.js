@@ -1,31 +1,49 @@
-import { defineStore } from 'pinia'
-import axiosInstance from '@/services/axiosService';
+import { defineStore } from "pinia";
+import axiosInstance from "@/services/AxiosService";
 
-export const useAuth = defineStore('auth', {
+export const useAuth = defineStore("auth", {
   state: () => ({
     user: {},
     loading: false,
   }),
-  persist: {
-    paths: ['user'],
-  },
 
+  persist: {
+    paths: ["user"],
+  },
   actions: {
-    async register(formData) {
+    async login(formData) {
       try {
-        const res = await axiosInstance.post("/user/register", formData);
-        if (res.status == 200) {
-          console.log('Ok');
-          console.log(res.data);
+        const res = await axiosInstance.post("/user/login", formData);
+
+        if (res.status === 200) {
+          // console.log(res.data);
           this.user = res.data;
+
           return new Promise((resolve) => {
             resolve(res.data);
           });
-
         }
       } catch (error) {
         if (error.response.data) {
-          this.errors = error.response.data.errors;
+          // this.errors = error.response.data.errors;
+
+          return new Promise((reject) => {
+            reject(error.response.data.errors);
+          });
+        }
+      }
+    },
+
+    async register(formData) {
+      try {
+        const res = await axiosInstance.post("/user/register", formData);
+        if (res.status === 200) {
+          return new Promise((resolve) => {
+            resolve(res.data);
+          });
+        }
+      } catch (error) {
+        if (error.response.data) {
           return new Promise((reject) => {
             reject(error.response.data.errors);
           });
@@ -36,16 +54,14 @@ export const useAuth = defineStore('auth', {
     async otpVerify(vData) {
       try {
         const res = await axiosInstance.post("/user/otp-verify", vData);
-        if (res.status == 200) {
+        if (res.status === 200) {
           this.user = res.data;
           return new Promise((resolve) => {
             resolve(res.data);
           });
-
         }
       } catch (error) {
         if (error.response.data) {
-          this.errors = error.response.data.errors;
           return new Promise((reject) => {
             reject(error.response.data.errors);
           });
@@ -53,39 +69,19 @@ export const useAuth = defineStore('auth', {
       }
     },
 
-    async resentOtp(phone) {
+    async resendOtp(phone) {
       try {
-        const res = await axiosInstance.post("/user/otp-resent", { phone: phone });
-        if (res.status == 200) {
+        const res = await axiosInstance.post("/user/otp-resend", {
+          phone: phone,
+        });
+        if (res.status === 200) {
           this.user = res.data;
           return new Promise((resolve) => {
             resolve(res.data);
           });
-
         }
       } catch (error) {
         if (error.response.data) {
-          this.errors = error.response.data.errors;
-          return new Promise((reject) => {
-            reject(error.response.data.errors);
-          });
-        }
-      }
-    },
-
-    async login(formData) {
-      try {
-        const res = await axiosInstance.post("/user/login", formData);
-        if (res.status == 200) {
-          this.user = res.data;
-          return new Promise((resolve) => {
-            resolve(res.data);
-          });
-
-        }
-      } catch (error) {
-        if (error.response.data) {
-          this.errors = error.response.data.errors;
           return new Promise((reject) => {
             reject(error.response.data.errors);
           });
@@ -97,17 +93,21 @@ export const useAuth = defineStore('auth', {
       this.loading = true;
       try {
         const res = await axiosInstance.post("/user/logout");
-        if (res.status == 200) {
+        if (res.status === 200) {
           this.user = {};
           return new Promise((resolve) => {
             resolve(res.data);
           });
         }
-      } catch (error) { }
-      finally {
+      } catch (error) {
+        if (error.response) {
+          return new Promise((reject) => {
+            reject(error.response);
+          });
+        }
+      } finally {
         this.loading = false;
       }
-    }
-
+    },
   },
 });

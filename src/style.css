@@ -2,23 +2,24 @@
 @import "@/assets/fonts/icofont/icofont.min.css";
 @import "@/assets/fonts/fontawesome/fontawesome.min.css";
 @import "@/assets/vendor/venobox/venobox.min.css";
-@import "./assets/vendor/slickslider/slick.min.css";
+@import "@/assets/vendor/slickslider/slick.min.css";
 @import "@/assets/vendor/niceselect/nice-select.min.css";
 @import "@/assets/vendor/bootstrap/bootstrap.min.css";
 @import "@/assets/css/main.css";
 @import "@/assets/css/home-category.css";
 
-/* Progress Bar Css */
-@import 'element-plus/dist/index.css';
-@import 'nprogress/nprogress.css';
+/* //package css  */
+
+@import "element-plus/dist/index.css";
+@import "nprogress/nprogress.css";
 
 #nprogress .bar {
-    background: #ffffff !important;
-    padding: 0 10px !important;
-    height: 2px !important;
+  background: #ffffff !important;
+  padding: 0 10px !important;
+  height: 4px !important;
 }
 
 #nprogress .spinner .spinner-icon {
-    border-top-color: #ffffff !important;
-    border-left-color: #ffffff !important;
+  border-top-color: #ffffff !important;
+  border-left-color: #ffffff !important;
 }

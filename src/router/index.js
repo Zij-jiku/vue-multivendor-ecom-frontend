@@ -1,28 +1,95 @@
-import NProgress from 'nprogress'
-import { createRouter, createWebHistory } from 'vue-router'
-import { Index, Shop, SingleProduct, CheckoutPage } from '@/views/pages';
-import { SellerPage, SellerStore, SellerApply } from '@/views/pages/seller';
-import { UserProfile, UserOrders, UserWishlist } from '@/views/users';
-import { UserLogin, UserRegister } from '@/views/auth';
-import { useAuth } from '@/stores'
+import { createRouter, createWebHistory } from "vue-router";
+import NProgress from "nprogress";
+import { useAuth } from "@/stores";
+import { Index, Shop, SingleProduct, Checkout } from "@/views/pages";
+import { UserLogin, UserRegister } from "@/views/auth";
+import { SellerApply, SellerPage, SellerStore } from "@/views/pages/seller";
+import { MyProfile, MyOrderList, MyWishlist } from "@/views/user";
 
 const routes = [
-  { path: '/', name: "index.page", component: Index, meta: { title: 'Home' } },
-  { path: '/auth/login', name: "user.login", component: UserLogin, meta: { title: 'Login', guest: true } },
-  { path: '/auth/register', name: "user.register", component: UserRegister, meta: { title: 'Register', guest: true } },
-  { path: '/shop-page', name: "shop.page", component: Shop, meta: { title: 'Shop' } },
-  { path: '/single-product', name: "product.details", component: SingleProduct, meta: { title: 'Single-product' } },
-  { path: '/seller-list', name: "seller.page", component: SellerPage, meta: { title: 'Seller-list' } },
-  { path: '/seller-store/:slug', name: "seller.store", component: SellerStore, meta: { title: 'Seller-store' } },
-  { path: '/seller-apply', name: "seller.apply", component: SellerApply, meta: { title: 'Seller-form' } },
+  {
+    path: "/",
+    name: "index.page",
+    component: Index,
+    meta: { title: "Home" },
+  },
 
-  // users route
-  { path: '/profile', name: "user.profile", component: UserProfile, meta: { title: 'Profile', requiresAuth: true } },
-  { path: '/my-orders', name: "user.orders", component: UserOrders, meta: { title: 'Orders', requiresAuth: true } },
-  { path: '/my-wishlist', name: "user.wishlist", component: UserWishlist, meta: { title: 'Wishlist', requiresAuth: true } },
-  { path: '/checkout-page', name: "checkout.page", component: CheckoutPage, meta: { title: 'Checkout', requiresAuth: true } },
-  // seller route
+  {
+    path: "/shop",
+    name: "shop.page",
+    component: Shop,
+    meta: { title: "Shop" },
+  },
 
+  {
+    path: "/checkout",
+    name: "checkout.page",
+    component: Checkout,
+    meta: { title: "checkout" },
+  },
+
+  {
+    path: "/product/:slug",
+    name: "product.details",
+    component: SingleProduct,
+    meta: { title: "product" },
+  },
+
+  {
+    path: "/seller-list",
+    name: "seller.page",
+    component: SellerPage,
+    meta: { title: "seller-list" },
+  },
+
+  {
+    path: "/seller-apply",
+    name: "seller.apply",
+    component: SellerApply,
+    meta: { title: "seller-apply" },
+  },
+
+  {
+    path: "/seller-store/:slug",
+    name: "seller.store",
+    component: SellerStore,
+    meta: { title: "seller-store" },
+  },
+
+  //user routes
+  {
+    path: "/auth/login",
+    name: "user.login",
+    component: UserLogin,
+    meta: { title: "Login", guest: true },
+  },
+  {
+    path: "/auth/register",
+    name: "user.register",
+    component: UserRegister,
+    meta: { title: "Register", guest: true },
+  },
+
+  {
+    path: "/my/profile",
+    name: "user.profile",
+    component: MyProfile,
+    meta: { title: "profile", requiresAuth: true },
+  },
+
+  {
+    path: "/my/orders",
+    name: "user.orders",
+    component: MyOrderList,
+    meta: { title: "orders", requiresAuth: true },
+  },
+
+  {
+    path: "/my/wishlist",
+    name: "user.wishlist",
+    component: MyWishlist,
+    meta: { title: "wishlist", requiresAuth: true },
+  },
 ];
 
 const router = createRouter({
@@ -30,31 +97,27 @@ const router = createRouter({
   routes,
   scrollBehavior() {
     // always scroll to top
-    return {
-      top: 0,
-      behavior: 'smooth',
-    }
+    return { top: 0, behavior: "smooth" };
   },
 });
 
-// NProgress Bar Loading bar hide
-NProgress.configure({ showSpinner: false });
-
-
 const DEFAULT_TITLE = "404";
-router.beforeEach((to, form, next) => {
+
+router.beforeEach((to, from, next) => {
   document.title = to.meta.title || DEFAULT_TITLE;
   NProgress.start();
+
   const loggedIn = useAuth();
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!loggedIn.user.meta) {
-      next({ name: 'user.login' });
+      next({ name: "user.login" });
     } else {
       next();
     }
   } else if (to.matched.some((record) => record.meta.guest)) {
     if (loggedIn.user.meta) {
-      next({ name: 'user.profile' });
+      next({ name: "user.profile" });
     } else {
       next();
     }
@@ -66,5 +129,4 @@ router.beforeEach((to, form, next) => {
 router.afterEach(() => {
   NProgress.done();
 });
-
 export default router;

@@ -1,33 +1,41 @@
 import { createApp } from "vue";
-// Main CSS & Js File
-import "./style.css";
-import "./script.js";
-import "skeleton-screen-css";
-// App JS
-import App from "./App.vue";
-// Router
-import router from "./router";
-// Notification JS
-import ElementPlus from "element-plus";
-// State Management Pinia
 import { createPinia } from "pinia";
+import "./style.css";
+import "./template.js";
+
+import router from "./router";
+import App from "./App.vue";
+
+import ElementPlus from "element-plus";
+
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import "skeleton-screen-css";
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 const app = createApp(App);
-app.use(pinia);
 app.use(router);
+app.use(pinia);
 app.use(ElementPlus);
 
 app.config.globalProperties.$filters = {
   currencySymbol(value) {
-    return "৳ " + value.toLocaleString();
+    return "৳" + value.toLocaleString();
   },
 
-  imagePath(img) {
+  makeImagePath(img) {
     return import.meta.env.VITE_API_URL + "/" + img;
+  },
+
+  textShort(text, size) {
+    if (!text) return "";
+    text = text.toString();
+
+    if (text.length <= size) {
+      return text;
+    }
+    return text.substr(0, size) + "...";
   },
 };
 

@@ -79,7 +79,6 @@ label {
 html,
 body {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 body {
   color: var(--text);
@@ -123,12 +122,6 @@ h5 {
 h6 {
   font-size: var(--h6size);
   line-height: var(--h6height);
-}
-
-.resent_btn {
-  float: right;
-  margin: 10px 0;
-  padding-left: 5px;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
@@ -3456,7 +3449,6 @@ tbody tr td:last-child {
   margin-left: 35px;
 }
 
-
 .header-top-list li a {
   font-size: 14px;
   color: var(--white);
@@ -3778,7 +3770,6 @@ tbody tr td:last-child {
   .header-widget span {
     display: none;
   }
-
 }
 .navbar-part {
   background: var(--white);
@@ -5812,7 +5803,16 @@ tbody tr td:last-child {
 .shop-widget-btn span {
   text-transform: capitalize;
 }
-
+.shop-widget-group {
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 10px;
+  -ms-grid-columns: (1fr) [2];
+  grid-template-columns: repeat(2, 1fr);
+  -ms-grid-rows: auto;
+  grid-template-rows: auto;
+  margin: 15px 0px;
+}
 .shop-widget-group input {
   width: 100%;
   height: 45px;
@@ -6083,9 +6083,7 @@ tbody tr td:last-child {
   }
 }
 
-
 /* added  */
-
 
 .dropdown-item.active,
 .dropdown-item:active {
@@ -6102,12 +6100,14 @@ tbody tr td:last-child {
 }
 
 .nav-link i {
-    margin-right: 0px;
+  margin-right: 0px;
 }
 
 @media all and (min-width: 992px) {
   .hover-nav .nav-item .dropdown-menu {
     display: none;
+  }
+  .hover-nav .nav-item:hover .nav-link {
   }
   .hover-nav .nav-item:hover .dropdown-menu {
     display: block;
@@ -6116,8 +6116,3 @@ tbody tr td:last-child {
     margin-top: 0;
   }
 }
-
-
-
-
-

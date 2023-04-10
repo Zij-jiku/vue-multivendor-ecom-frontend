@@ -1,59 +1,69 @@
 <script setup>
-import { HeaderPart, NavBar, CartSideBar, MobileMenu, NewsPart, FooterPart, LoginModal } from '@/components';
-</script>
+import { useCategory } from "@/stores";
+import { onMounted } from "vue";
 
+import {
+  HeaderPart,
+  NavBar,
+  CartSideBar,
+  MobileMenu,
+  FooterPart,
+  NewsLetter,
+  LoginModal,
+} from "@/components";
+import { storeToRefs } from "pinia";
+
+const navData = useCategory();
+const { navCats } = storeToRefs(navData);
+
+onMounted(() => {
+  navData.navCategory();
+});
+</script>
 
 <template>
   <div>
-    <!-- start -->
     <div class="backdrop"></div>
     <a class="backtop fas fa-arrow-up" href="#"></a>
 
-    <!-- Header Part Start -->
+    <!-- heder part  -->
     <HeaderPart />
+    <!-- NavBar part  -->
+    <NavBar :navCats="navCats" />
 
-    <!-- Navbar Start -->
-    <NavBar />
-
-    <!-- Cart Sidebar  -->
     <CartSideBar />
 
-    <!-- MobileMenu -->
     <MobileMenu />
+    <LoginModal />
 
-    <!-- Main Content Load Start -->
-    <!-- yield here -->
+    <!-- content change -->
+    <!-- <router-view> </router-view> -->
+
     <router-view v-slot="{ Component }">
-      <transition name="scale" mode="out-in">
+      <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
     </router-view>
-    <!-- Main Content Load End -->
 
-    <LoginModal />
+    <NewsLetter />
 
-    <!-- NewsPart && Intro Part -->
-    <NewsPart />
-
-    <!-- Footer Start -->
     <FooterPart />
-    <!-- Footer End -->
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style>
-.scale-enter-active,
-.scale-leave-active {
-  transition: all 0.5s ease;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 
-.scale-enter-from,
-.scale-leave-to {
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
-  transform: scale(0.9);
 }
 </style>

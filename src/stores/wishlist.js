@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import axiosInstance from '@/services/axiosService';
-import { useAuth } from '@/stores';
+import axiosInstance from "@/services/AxiosService";
+import { useAuth } from "@/stores";
 
 export const useWishlist = defineStore("wishlist", {
   state: () => ({
@@ -12,7 +12,7 @@ export const useWishlist = defineStore("wishlist", {
     async index() {
       try {
         const res = await axiosInstance.get("/user/wishlists");
-        if (res.status == 200) {
+        if (res.status === 200) {
           const auth = useAuth();
           auth.user.meta.wishlists = res.data.data;
         }
@@ -26,22 +26,33 @@ export const useWishlist = defineStore("wishlist", {
     async addToWishlist(product) {
       this.loading = product.id;
       try {
-        const res = await axiosInstance.post("/user/wishlists", { product_id: product.id });
+        const res = await axiosInstance.post("/user/wishlists", {
+          product_id: product.id,
+        });
+
+        // console.log(res);
+
         if (res.status) {
+          //   this.wishlists = res.data;
+
           const auth = useAuth();
-          if (res.status == 201) {
-            // attached
+
+          if (res.status === 201) {
+            //attach
+
             auth.user.meta.wishlists.unshift(product);
           } else {
             // detach
-            let index = auth.user.meta.wishlists.findIndex((i) => i.id === product.id);
+            let index = auth.user.meta.wishlists.findIndex(
+              (i) => i.id === product.id
+            );
+
             auth.user.meta.wishlists.splice(index, 1);
           }
           return new Promise((resolve) => {
             resolve(res);
           });
         }
-
       } catch (error) {
         if (error.response.data) {
           console.log(error.response.data);
@@ -50,6 +61,5 @@ export const useWishlist = defineStore("wishlist", {
         this.loading = false;
       }
     },
-
   },
 });
