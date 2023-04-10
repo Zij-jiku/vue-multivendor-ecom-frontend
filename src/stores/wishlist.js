@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axiosInstance from "@/services/AxiosService";
+import axiosInstance from "../services/axiosService";
 import { useAuth } from "@/stores";
 
 export const useWishlist = defineStore("wishlist", {
