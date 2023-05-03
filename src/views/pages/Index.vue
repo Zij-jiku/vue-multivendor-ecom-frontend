@@ -74,16 +74,6 @@ onMounted(() => {
                         :src="$filters.makeImagePath(slider.image)"
                         alt="" /></a
                   ></swiper-slide>
-
-                  <!-- <swiper-slide
-                  ><a href="#"
-                    ><img
-                      src="@/assets/images/banner/02.jfif"
-                      alt="" /></a></swiper-slide
-                ><swiper-slide>
-                  <a href="#"
-                    ><img src="@/assets/images/banner/03.jfif" alt="" /></a
-                ></swiper-slide> -->
                 </swiper>
               </template>
 

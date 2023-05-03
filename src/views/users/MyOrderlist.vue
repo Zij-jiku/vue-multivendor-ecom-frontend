@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="inner-section single-banner" style="
-          background: url(//website//website/images/single-banner.jpg) no-repeat;
+          background: url(images/single-banner.jpg) no-repeat;
         ">
             <div class="container">
                 <h2>Order List</h2>

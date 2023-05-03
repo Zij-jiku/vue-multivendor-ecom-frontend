@@ -6,7 +6,7 @@
           <div class="col-sm-6 col-xl-3">
             <div class="footer-widget">
               <a class="footer-logo" href="#"
-                ><img src="@/assets/images/logo.png" alt="logo"
+                ><img src="../assets/images/logo.png" alt="logo"
               /></a>
               <p class="footer-desc">
                 Adipisci asperiores ipsum ipsa repellat consequatur repudiandae
@@ -75,10 +75,10 @@
               <div class="footer-app">
                 <a href="#"
                   ><img
-                    src="@/assets/images/google-store.png"
+                    src="../assets/images/google-store.png"
                     alt="google" /></a
                 ><a href="#"
-                  ><img src="@/assets/images/app-store.png" alt="app"
+                  ><img src="../assets/images/app-store.png" alt="app"
                 /></a>
               </div>
             </div>
@@ -94,18 +94,18 @@
               <div class="footer-card">
                 <a href="#"
                   ><img
-                    src="@/assets/images/payment/jpg/01.jpg"
+                    src="../assets/images/payment/jpg/01.jpg"
                     alt="payment" /></a
                 ><a href="#"
                   ><img
-                    src="@/assets/images/payment/jpg/02.jpg"
+                    src="../assets/images/payment/jpg/02.jpg"
                     alt="payment" /></a
                 ><a href="#"
                   ><img
-                    src="@/assets/images/payment/jpg/03.jpg"
+                    src="../assets/images/payment/jpg/03.jpg"
                     alt="payment" /></a
                 ><a href="#"
-                  ><img src="@/assets/images/payment/jpg/04.jpg" alt="payment"
+                  ><img src="../assets/images/payment/jpg/04.jpg" alt="payment"
                 /></a>
               </div>
             </div>

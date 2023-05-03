@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 $(window).on("scroll", function () {
   $(this).scrollTop() > 130
     ? $(".header-part").addClass("active")

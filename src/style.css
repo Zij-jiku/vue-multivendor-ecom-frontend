@@ -4,7 +4,8 @@
 @import "@/assets/vendor/venobox/venobox.min.css";
 @import "@/assets/vendor/slickslider/slick.min.css";
 @import "@/assets/vendor/niceselect/nice-select.min.css";
-@import "@/assets/vendor/bootstrap/bootstrap.min.css";
+
+@import "bootstrap/dist/css/bootstrap.min.css";
 @import "@/assets/css/main.css";
 @import "@/assets/css/home-category.css";
 

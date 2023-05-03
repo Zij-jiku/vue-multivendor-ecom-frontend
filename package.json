@@ -23,7 +23,10 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@popperjs/core": "^2.11.7",
     "@vitejs/plugin-vue": "^3.0.3",
+    "bootstrap": "^5.0.0-beta3",
+    "jquery": "^3.6.4",
     "vite": "^3.0.7"
   }
 }

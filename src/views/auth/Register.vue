@@ -1,5 +1,6 @@
 <script setup>
-import { useAuth, useNotification } from "@/stores";
+import { useAuth, useNotification, useModal } from "@/stores";
+
 import { ref, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { Field, Form } from "vee-validate";
@@ -20,13 +21,15 @@ const schema = yup.object({
     ),
 });
 
-onMounted(() => {
-  $("#login-modal").modal("hide");
-});
-
 const auth = useAuth();
 const notify = useNotification();
 const router = useRouter();
+const modal = useModal();
+
+onMounted(() => {
+  // $("#login-modal").modal("hide");
+  modal.closeModal();
+});
 
 const showPassword = ref(false);
 

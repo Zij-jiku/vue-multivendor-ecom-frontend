@@ -59,15 +59,15 @@ function cartshow() {
         <div class="header-content">
           <div class="header-media-group">
             <button class="header-user" @click="menu">
-              <img src="@/assets/images/menu.png" alt="user" /></button
+              <img src="../assets/images/menu.png" alt="user" /></button
             ><router-link :to="{ name: 'index.page' }"
-              ><img src="@/assets/images/logo.png" alt="logo" /></router-link
+              ><img src="../assets/images/logo.png" alt="logo" /></router-link
             ><button class="header-src" @click="search">
               <i class="fas fa-search"></i>
             </button>
           </div>
           <router-link :to="{ name: 'index.page' }" class="header-logo"
-            ><img src="@/assets/images/logo.png" alt="logo"
+            ><img src="../assets/images/logo.png" alt="logo"
           /></router-link>
 
           <form class="header-form">

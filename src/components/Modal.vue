@@ -9,8 +9,7 @@ const modal = useModal();
         <div class="modal-content">
           <button
             class="modal-close icofont-close"
-            data-bs-dismiss="modal"
-            @click.prevent="modal.toggleModal()"
+            @click.prevent="modal.closeModal()"
           ></button>
           <slot />
         </div>

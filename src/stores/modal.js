@@ -11,5 +11,9 @@ export const useModal = defineStore("modal", {
     toggleModal() {
       this.isOpen = !this.isOpen;
     },
+
+    closeModal() {
+      this.isOpen = false;
+    },
   },
 });

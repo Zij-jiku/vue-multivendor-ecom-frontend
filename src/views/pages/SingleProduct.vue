@@ -102,41 +102,6 @@ const addToWishlist = async (product) => {
                   >{{ product.discount }}%</label
                 >
               </div>
-              <!-- <ul class="details-preview">
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-              </ul>
-              <ul class="details-thumb">
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-                <li>
-                  <img src="@/assets/images/product/01.jpg" alt="product" />
-                </li>
-              </ul> -->
-
               <div class="product-imgs">
                 <div class="img-display">
                   <div class="img-showcase">

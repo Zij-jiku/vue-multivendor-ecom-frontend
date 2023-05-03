@@ -163,7 +163,7 @@ function cateClose() {
 
     <aside class="nav-sidebar">
       <div class="nav-header">
-        <a href="#"><img src="@/assets/images/logo.png" alt="logo" /></a
+        <a href="#"><img src="../assets/images/logo.png" alt="logo" /></a
         ><button class="nav-close" @click="menuClose">
           <i class="icofont-close"></i>
         </button>

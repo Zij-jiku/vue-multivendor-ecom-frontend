@@ -15,11 +15,11 @@ const couponBtn = () => {
         <div class="form-group">
           <label class="form-label">Select Area</label
           ><select class="form-select">
-            <option value="">choose division</option>
+            <option value="">Select Division</option>
           </select>
         </div>
         <div class="form-group" style="display: none">
-          <label class="form-label">Select Division</label
+          <label class="form-label">Select District</label
           ><select class="form-select">
             <option value="">choose district</option>
           </select>
@@ -34,6 +34,7 @@ const couponBtn = () => {
         <button class="form-btn" type="submit">save address info</button>
       </form>
     </Modal>
+
     <section class="inner-section single-banner">
       <div class="container"><h2>Checkout</h2></div>
     </section>
@@ -53,6 +54,8 @@ const couponBtn = () => {
               </p>
             </div>
           </div>
+
+          <!--Add Delivery address  -->
           <div>
             <div class="col-lg-12">
               <div class="account-card">
@@ -78,6 +81,7 @@ const couponBtn = () => {
               </div>
             </div>
           </div>
+
           <div class="col-lg-12">
             <div class="account-card">
               <div class="account-title"><h4>Your order</h4></div>

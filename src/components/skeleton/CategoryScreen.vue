@@ -13,7 +13,7 @@ const props = defineProps({
       <ul>
         <li>
           <a class="suggest-card" href="javascrpt::void(0)">
-            <img src="@/assets/images/category/cat.jpg" alt="" />
+            <img src="../../assets/images/category/cat.jpg" alt="" />
             <div class="ssc-line w-100"></div>
           </a>
         </li>

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axiosInstance from "../services/axiosService";
+import axiosInstance from "@/services/AxiosService";
 
 export const useSlider = defineStore("slider", {
   state: () => ({
